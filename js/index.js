@@ -90,7 +90,6 @@ shouldAddProducts = () => {
     let answer;
     do{
         answer = validateYesNoPrompt('Desea ingresar productos a su carrito? y / n');
-        console.log()
         if(answer) {
             const productName = validateStringPrompt('Ingrese nombre del producto');
             const productPrice = validateNumberPrompt('Ingrese valor del producto');
