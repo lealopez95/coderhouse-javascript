@@ -1,0 +1,133 @@
+
+.header {
+	grid-area: header;
+	display: grid;
+	grid-template-columns: min-content auto min-content;
+	grid-template-rows: 100%;
+	grid-template-areas: "header__logo nav header__basket";
+	align-items: center;
+	justify-items: center;
+	position: sticky;
+	top: 0;
+	padding: 0 2%;
+	background-color: $white;
+	border-bottom: 2px solid $gray;
+	z-index: 10;
+	@include setSizes("", 130px);
+
+	&__logo__img {
+		grid-area: header__logo;
+		@include setSizes(auto, 130px);
+	}
+
+	&__basket {
+		grid-area: header__basket;
+
+		&__img {
+			@include setSizes(30px, 30px);
+		}
+
+		&__container {
+			background-color: $linen;
+			color: $ruby-red;
+		}
+
+		&__section {
+			display: flex;
+			flex-direction: column;
+
+			&__list {
+				display: flex;
+				flex-direction: column;
+				@include setSizes(100%);
+				align-items: flex-start;
+				padding: 0;
+
+				&__item {
+					@include setSizes(100%);
+					display: flex;
+					flex-direction: row;
+					flex-wrap: nowrap;
+					align-items: center;
+					justify-content: space-between;
+					gap: 15px;
+
+					&__discount_code {
+						width: 50%
+					}
+
+					&__qty {
+						@include setSizes(2.3rem);
+						text-align: center;
+					}
+
+					&__text {
+						margin: 1rem 0
+					}
+
+					&__icon {
+						@include setSizes(15px);
+					}
+
+					&__button {
+						background-color: $ruby-red;
+						border: unset;
+						padding: 20px;
+						line-height: 1rem;
+						border-radius: 15px;
+						color: $white;
+						cursor: pointer;
+						margin-top: 24px;
+					}
+
+					&--align_center {
+						justify-content: center;
+					}
+				}
+			}
+		}
+	}
+}
+
+.nav {
+	font-size: 1.3rem;
+	grid-area: nav;
+}
+
+#navMainMenu .nav-item:hover {
+	@include setZoomEffect(1.2);
+	
+}
+
+.offcanvas-start {
+	@include setSizes(100%);
+}
+
+.navbar-light {
+	.navbar-nav {
+		.nav-item {
+			margin-left: 20px;
+			margin-right: 20px;
+		}
+
+		.nav-link {
+			color: $ruby-red;
+			padding: 0 15px;
+
+			&:hover {
+				color: $dark-orange;
+			}
+
+			&.active {
+				border: #000000 1px solid;
+				border-radius: 100%;
+				background-color: $ruby-red;
+				color: $white;
+
+				&:hover {
+					color: $white;
+				}
+			}
+		}
+	}
+}

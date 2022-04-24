@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta name="description" content="Visualiza el menú de comida de Itadakimasu!">
+	<meta name="keywords" content="MENU, CARTA, COMIDA JAPONESA, ITADAKIMASU">
+	<title>Menu de comidas | Itadakimasu!</title>
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+	<link rel="shortcut icon" href="../favicon.ico">
+	<link rel="stylesheet" href="../css/styles.css">
+</head>
+<body class="body_grid_1_col">
+	<span class="back_to_top" onclick="window.scrollTo(0, 0);"><img src="../media/images/icons/arrow_up.svg" alt="flecha apuntando arriba"></span>
+	<header class="header">
+		<a href="../index.html" class="header__logo">
+			<img src="../media/images/logos/logo_1.png" alt="Logo Itadakimasu!" class="header__logo__img">
+		</a>
+		<nav class="nav navbar navbar-light navbar-expand-md">
+			<button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#navMainMenu" aria-controls="navMainMenu" aria-label="menu">
+				<span class="navbar-toggler-icon"></span>
+			</button>
+			<div class="offcanvas offcanvas-start" tabindex="-1" id="navMainMenu" aria-labelledby="navbarOffcanvasLgLabel">
+				<div class="offcanvas-header align-self-end">
+					<button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+				</div>
+				<ul class="navbar-nav align-items-center">
+					<li class="nav-item">
+						<a class="nav-link" href="../index.html">Inicio</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" href="./contact-us.html">Contacto</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link active" aria-current="page" href="#">Men&uacute;</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" href="./reservations.html">Reservar</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" href="./online-order.html">Pedir Online</a>
+					</li>
+				</ul>
+			</div>
+		</nav>
+		<a class="header__basket" data-bs-toggle="offcanvas" href="#chart" role="button" aria-controls="chart" aria-label="carrito">
+			<img class="header__basket__img" src="../media/images/icons/shopping-basket.svg" alt="Canasta de compras">
+		</a>
+		<div class="header__basket__container offcanvas offcanvas-end" tabindex="-1" id="chart" aria-labelledby="chartLabel">
+			<div class="offcanvas-header">
+				<h2 id="chartLabel">Carrito</h2>
+				<button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+			</div>
+			<div class="offcanvas-body">
+				<div class="header__basket__section">
+					<h3>Pedido</h3>
+					<ul class="header__basket__section__list">
+						<li class="header__basket__section__list__item">
+							<p class="header__basket__section__list__item__text">Plato 1</p>
+							<input class="header__basket__section__list__item__qty" type="number" name="quantity" id="quantity_plato_1" value="2">
+							<p class="header__basket__section__list__item__text">$500</p>
+							<a href="#">
+								<img class="header__basket__section__list__item__icon" src="../media/images/icons/trash_icon.svg" alt="tacho de basura">
+							</a>
+						</li>
+						<li class="header__basket__section__list__item">
+							<p class="header__basket__section__list__item__text">Plato 4</p>
+							<input class="header__basket__section__list__item__qty" type="number" name="quantity" id="quantity_plato_2" value="1">
+							<p class="header__basket__section__list__item__text">$100</p>
+							<a href="#">
+								<img class="header__basket__section__list__item__icon" src="../media/images/icons/trash_icon.svg" alt="tacho de basura">
+							</a>
+						</li>
+					</ul>
+				</div>
+				<div class="header__basket__section">
+					<h3>Resumen</h3>
+					<ul class="header__basket__section__list">
+						<li class="header__basket__section__list__item">
+							<label for="discount_code">C&oacute;digo de descuento</label>
+							<input class="header__basket__section__list__item__discount_code" type="text" name="discount_code" id="discount_code" placehulder="C&oacute;digo">
+							<p class="header__basket__section__list__item__text">-20%</p>
+						</li>
+						<li class="header__basket__section__list__item">
+							<p class="header__basket__section__list__item__text">Env&iacute;o</p>
+							<p class="header__basket__section__list__item__text">$45</p>
+						</li>
+						<li class="header__basket__section__list__item">
+							<p class="header__basket__section__list__item__text">Subtotal</p>
+							<p class="header__basket__section__list__item__text">$645</p>
+						</li>
+						<li class="header__basket__section__list__item">
+							<p class="header__basket__section__list__item__text">Total</p>
+							<p class="header__basket__section__list__item__text">$516</p>
+						</li>
+						<li class="header__basket__section__list__item header__basket__section__list__item--align_center">
+							<button class="header__basket__section__list__item__button">Ir a pagar</button>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+	</header>
+	<section id="section" class="banner banner--fade-down banner--one_row banner--background-img banner--background-img--desing-2">
+		<div class="banner__textbox">
+			<h2 class="banner__textbox__title banner__textbox__title">RESERVAS</h2>
+			<p class="banner__textbox__text banner__textbox__text--light">
+				Muchas historias quedan por contarse…
+			</p>
+			<p class="banner__textbox__text banner__textbox__text--light">
+				¡Vivilas en Itadakimasu!
+			</p>
+			<a class="banner__textbox__link" href="./reservations.html"><span class="banner__textbox__link__text">Reserva ahora!</span></a>
+		</div>
+	</section>
+	<main>
+		<section class="menu">
+			<div class="menu__box">
+				<img class="menu__box__logo" src="../media/images/logos/logo_1.png" alt="logo Itadakimasu!">
+				<section class="menu__box__category container">
+					<div class="row mb-3">
+						<div class="menu__box__category__title col-sm-12">
+							<h2>Entradas</h2>
+						</div>
+					</div>
+					<div class="row justify-content-center">
+						<div class="menu__box__category__plates__item col-sm-12 col-md-6 col-lg-4">
+							<img class="menu__box__category__plates__item__img" src="../media/images/food/oniguiri.webp" alt="Oniguiri">
+							<h3 class="menu__box__category__plates__item__title">Oniguiri</h3>
+							<p class="menu__box__category__plates__item__description">Triángulos de arroz rellenos x 2 u.</p>
+						</div>
+						<div class="menu__box__category__plates__item col-sm-12 col-md-6 col-lg-4">
+							<img class="menu__box__category__plates__item__img" src="../media/images/food/tempura-de-camarones1.webp" alt="Tempura">
+							<h3 class="menu__box__category__plates__item__title">Tempura</h3>
+							<p class="menu__box__category__plates__item__description">Fritura de mariscos, kani-kama o vegetales rebozados en harina</p>
+						</div>
+						<div class="menu__box__category__plates__item col-sm-12 col-md-6 col-lg-4">
+							<img class="menu__box__category__plates__item__img" src="../media/images/food/Gyoza.webp" alt="Gyōza">
+							<h3 class="menu__box__category__plates__item__title">Gyōza</h3>
+							<p class="menu__box__category__plates__item__description">Empanada japonesa rellena de cerdo o verdura con salsa de soja y ajo x 5 u.</p>
+						</div>
+					</div>
+				</section>
+				<section class="menu__box__category container">
+					<div class="row mb-3">
+						<div class="menu__box__category__title col-sm-12">
+							<h2>Platos principales</h2>
+						</div>
+					</div>
+					<div class="row justify-content-center">
+						<div class="menu__box__category__plates__item col-sm-12 col-md-6 col-lg-4">
+							<img class="menu__box__category__plates__item__img" src="../media/images/food/tonkotsu_ramen.webp" alt="Tonkotsu Ramen">
+							<h3 class="menu__box__category__plates__item__title">Tonkotsu Ramen</h3>
+							<p class="menu__box__category__plates__item__description">Sopa de Fideos, cerdo chashu en trozos, huevos, palillos, caja de cartón, botella de salsa de soja.</p>
+						</div>
+						<div class="menu__box__category__plates__item col-sm-12 col-md-6 col-lg-4">
+							<img class="menu__box__category__plates__item__img" src="../media/images/food/sapporo_ramen.webp" alt="Sapporo Ramen">
+							<h3 class="menu__box__category__plates__item__title">Sapporo Ramen</h3>
+							<p class="menu__box__category__plates__item__description">Fideos gruesos, caldo de cerdo, pollo o pescado y miso rojo acompañado con chasu, huevos pasado por agua, carne de cerdo picada,col, jengibre y maíz dulce</p>
+						</div>
+						<div class="menu__box__category__plates__item col-sm-12 col-md-6 col-lg-4">
+							<img class="menu__box__category__plates__item__img" src="../media/images/food/tsukemen_ramen.webp" alt="Tsukemen Ramen">
+							<h3 class="menu__box__category__plates__item__title">Tsukemen Ramen</h3>
+							<p class="menu__box__category__plates__item__description">Se sirve en dos bol distintos: en uno los fideos ligeramente fríos y en un otro el caldo. Los fideos se van sumergiendo poco a poco en el caldo y comiendo acompañado de los aderezos y demás ingredientes.</p>
+						</div>
+						<div class="menu__box__category__plates__item col-sm-12 col-md-6 col-lg-4">
+							<img class="menu__box__category__plates__item__img" src="../media/images/food/okonomiyaki.webp" alt="Okonomiyaki">
+							<h3 class="menu__box__category__plates__item__title">Okonomiyaki</h3>
+							<p class="menu__box__category__plates__item__description">tortilla hecha con una masa de harina con repollo, papas, puerros, alga nori, cebolla de verdeo, bacon, langostinos y salsa okonomiyaki</p>
+						</div>
+						<div class="menu__box__category__plates__item col-sm-12 col-md-6 col-lg-4">
+							<img class="menu__box__category__plates__item__img" src="../media/images/food/yakisoba-con-salm195179n.webp" alt="Yakisoba">
+							<h3 class="menu__box__category__plates__item__title">Yakisoba</h3>
+							<p class="menu__box__category__plates__item__description">Fideos soba fritos con mariscos y verduras</p>
+						</div>
+						<div class="menu__box__category__plates__item col-sm-12 col-md-6 col-lg-4">
+							<img class="menu__box__category__plates__item__img" src="../media/images/food/tonkatsu.webp" alt="Tonkatsu">
+							<h3 class="menu__box__category__plates__item__title">Tonkatsu</h3>
+							<p class="menu__box__category__plates__item__description">Chueta de cerdo rebosada en Panko frita</p>
+						</div>
+						<div class="menu__box__category__plates__item col-sm-12 col-md-6 col-lg-4">
+							<img class="menu__box__category__plates__item__img" src="../media/images/food/katsudon.webp" alt="Katsudon">
+							<h3 class="menu__box__category__plates__item__title">Katsudon</h3>
+							<p class="menu__box__category__plates__item__description">Milanesa de cerdo con huevo y cebolla cocidos en caldo dashi sobre arroz japonés</p>
+						</div>
+					</div>
+				</section>
+				<section class="menu__box__category container">
+					<div class="row mb-3">
+						<div class="menu__box__category__title col-sm-12">
+							<h2>Sushi</h2>
+						</div>
+					</div>
+					<div class="row justify-content-center">
+						<div class="menu__box__category__plates__item col-sm-12 col-md-6 col-lg-4">
+							<img class="menu__box__category__plates__item__img" src="../media/images/food/maki-sushi-.webp" alt="Maki">
+							<h3 class="menu__box__category__plates__item__title">Maki</h3>
+							<p class="menu__box__category__plates__item__description">Piezas de arroz con salm&oacute;n o At&uacute;n, palta y queso philadephia enrollados en alga nori x 6 u.</p>
+						</div>
+						<div class="menu__box__category__plates__item col-sm-12 col-md-6 col-lg-4">
+							<img class="menu__box__category__plates__item__img" src="../media/images/food/nigiri.webp" alt="Niguiri">
+							<h3 class="menu__box__category__plates__item__title">Niguiri</h3>
+							<p class="menu__box__category__plates__item__description">Piezas de arroz cubiertas con una lonja de salm&oacute;n, at&uacute;n rojo, pulpo o langostino x 6 u.</p>
+						</div>
+						<div class="menu__box__category__plates__item col-sm-12 col-md-6 col-lg-4">
+							<img class="menu__box__category__plates__item__img" src="../media/images/food/sashimi.webp" alt="Sashimi">
+							<h3 class="menu__box__category__plates__item__title">Sashimi</h3>
+							<p class="menu__box__category__plates__item__description">Lonjas de Salmón cortadas finamente x 6 u.</p>
+						</div>
+					</div>
+				</section>
+				<section class="menu__box__category container">
+					<div class="row mb-3">
+						<div class="menu__box__category__title col-sm-12">
+							<h2>Postres</h2>
+						</div>
+					</div>
+					<div class="row justify-content-center">
+						<div class="menu__box__category__plates__item col-sm-12 col-md-6 col-lg-4">
+							<img class="menu__box__category__plates__item__img" src="../media/images/food/dorayaki.webp" alt="Dorayaki">
+							<h3 class="menu__box__category__plates__item__title">Dorayaki</h3>
+							<p class="menu__box__category__plates__item__description">Tortita redonda rellena con una pasta dulce de judías rojas (azuki) x 2 u.</p>
+						</div>
+						<div class="menu__box__category__plates__item col-sm-12 col-md-6 col-lg-4">
+							<img class="menu__box__category__plates__item__img" src="../media/images/food/mitarashi_dango.webp" alt="Mitarashi Dango">
+							<h3 class="menu__box__category__plates__item__title">Mitarashi Dango</h3>
+							<p class="menu__box__category__plates__item__description">Brochetas de bambú con 3 bolas de masa dulce de harina de arroz x 2 u.</p>
+						</div>
+						<div class="menu__box__category__plates__item col-sm-12 col-md-6 col-lg-4">
+							<img class="menu__box__category__plates__item__img" src="../media/images/food/hanami-dango.webp" alt="Hanami dango">
+							<h3 class="menu__box__category__plates__item__title">Hanami dango</h3>
+							<p class="menu__box__category__plates__item__description">3 bolas de masa dulce de harina de arroz de color verde pálido, blanco y rosa.</p>
+						</div>
+						<div class="menu__box__category__plates__item col-sm-12 col-md-6 col-lg-4">
+							<img class="menu__box__category__plates__item__img" src="../media/images/food/ichigo_shorcake.webp" alt="Ichigo Shortcake">
+							<h3 class="menu__box__category__plates__item__title">Ichigo Shortcake</h3>
+							<p class="menu__box__category__plates__item__description">Mini torta de fresas con crema.</p>
+						</div>
+						<div class="menu__box__category__plates__item col-sm-12 col-md-6 col-lg-4">
+							<img class="menu__box__category__plates__item__img" src="../media/images/food/Purin.webp" alt="Purin">
+							<h3 class="menu__box__category__plates__item__title">Purin</h3>
+							<p class="menu__box__category__plates__item__description">Delicioso pudin con fresa y chocolate. Se sirve bien frio.</p>
+						</div>
+					</div>
+				</section>
+				<section class="menu__box__category container">
+					<div class="row mb-3">
+						<div class="menu__box__category__title col-sm-12">
+							<h2>Bebidas</h2>
+						</div>
+					</div>
+					<div class="row justify-content-center">
+						<div class="menu__box__category__plates__item col-sm-12 col-md-6 col-lg-4">
+							<img class="menu__box__category__plates__item__img" src="../media/images/food/sake.webp" alt="Sake">
+							<h3 class="menu__box__category__plates__item__title">Sake</h3>
+							<p class="menu__box__category__plates__item__description">Alcohol en base a arroz lleva levadura blanca y agua</p>
+						</div>
+						<div class="menu__box__category__plates__item col-sm-12 col-md-6 col-lg-4">
+							<img class="menu__box__category__plates__item__img" src="../media/images/food/sake-junmai.webp" alt="Sake junmai">
+							<h3 class="menu__box__category__plates__item__title">Sake junmai</h3>
+							<p class="menu__box__category__plates__item__description">El único ingrediente necesario para elaborar esta bebida típica de Japón es el arroz.</p>
+						</div>
+						<div class="menu__box__category__plates__item col-sm-12 col-md-6 col-lg-4">
+							<img class="menu__box__category__plates__item__img" src="../media/images/food/Ramune.webp" alt="Ramune">
+							<h3 class="menu__box__category__plates__item__title">Ramune</h3>
+							<p class="menu__box__category__plates__item__description">Bebida dulce y refrescante</p>
+						</div>
+						<div class="menu__box__category__plates__item col-sm-12 col-md-6 col-lg-4">
+							<img class="menu__box__category__plates__item__img" src="../media/images/food/tea.webp" alt="Té">
+							<h3 class="menu__box__category__plates__item__title">Té</h3>
+							<p class="menu__box__category__plates__item__description"> té verde o té oolong embotellado.</p>
+						</div>
+						<div class="menu__box__category__plates__item col-sm-12 col-md-6 col-lg-4">
+							<img class="menu__box__category__plates__item__img" src="../media/images/food/agua.webp" alt="Agua">
+							<h3 class="menu__box__category__plates__item__title">Agua</h3>
+							<p class="menu__box__category__plates__item__description">Botella de 600ml</p>
+						</div>
+					</div>
+				</section>
+			</div>
+		</section>
+	</main>
+	<footer class="footer">
+		<div class="footer__top">
+			<div class="footer__top__section">
+				<h4 class="footer__top__section__title">Horarios:</h4>
+				<ul>
+					<li>Lun a Jue de 12hs a 22hs</li>
+					<li>Vie a Dom de 12hs a 01hs</li>
+				</ul>
+			</div>
+			<address class="footer__top__section">
+				<h4 class="footer__top__section__title">Contacto:</h4>
+				<ul class="footer__top__section__adress">
+					<li>Direcci&oacute;n: Avenue A 123</li>
+					<li>Tel: <a href="tel:+5401133335555">11-3333-5555</a>  / Tel: <a href="tel:+5401144446666">11-4444-6666</a></li>
+					<li>Mail: <a href="mailto:contacto@itadakimasu.com">contacto@itadakimasu.com</a></li>
+				</ul>
+			</address>
+			<div class="footer__top__section footer__top__section--align-center">
+				<img class="footer__logo__img" src="../media/images/logos/logo_1.png" alt="Logo Itadakimasu!">
+			</div>
+			<div class="footer__top__section">
+				<h4 class="footer__top__section__title">Seguinos en:</h4>
+				<a class="footer__top__social" href="https://www.facebook.com/" target="_blank" rel="external noopener noreferrer">
+					<img class="footer__top__social__img" src="../media/images/icons/facebook_icon.svg" alt="facebook icon">
+				</a>
+				<a class="footer__top__social" href="https://www.instagram.com/" target="_blank" rel="external noopener noreferrer">
+					<img class="footer__top__social__img" src="../media/images/icons/instagram_icon.svg" alt="instagram icon">
+				</a>
+			</div>
+		</div>
+		<div class="footer__bottom">
+			<ul class="footer__bottom__list">
+				<li class="footer__bottom__list__item">@Copyright Leandro Lopez 2022</li>
+				<li class="footer__bottom__list__item">
+					<a class="footer__bottom__list__link" href="#">Aviso Legal</a>
+				</li>
+				<li class="footer__bottom__list__item">
+					<a class="footer__bottom__list__link" href="#">Política de privacidad</a>
+				</li>
+			</ul>
+		</div>
+	</footer>
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+</body>
+</html>

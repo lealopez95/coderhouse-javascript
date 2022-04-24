@@ -1,0 +1,58 @@
+@keyframes fade-in {
+	0% {
+		transform: scale(0);
+		background-color: rgba(0, 0, 0, 0);
+		opacity: 0;
+	}
+	100% {
+		transform: scale(1);
+		opacity: 1;
+	}
+}
+
+@keyframes fade-down {
+	0% {
+		transform: scale(0);
+        transform: translatey(-50%);
+		background-color: rgba(0, 0, 0, 0);
+		opacity: 0;
+	}
+	100% {
+		transform: scale(1);
+		opacity: 1;
+	}
+}
+
+@mixin setAnimation($animation) {
+    @if($animation == "fade-in") {
+        animation: fade-in ease;
+        animation-duration: 0.8s;
+        animation-iteration-count: 1;
+        animation-fill-mode: forwards;
+    } @else if($animation == "fade-in-bounce") {
+        animation: fade-in;
+        animation-duration: 0.8s;
+        animation-iteration-count: 1;
+        animation-timing-function: cubic-bezier(.63,.22,.67,1.5);
+        animation-fill-mode: forwards;
+    } @else if ($animation == "fade-down"){
+        animation: fade-down ease;
+        animation-duration: 0.8s;
+        animation-iteration-count: 1;
+        animation-fill-mode: forwards;
+    }
+}
+
+@mixin setSizes($width: "", $height: "") {
+    @if($width != ""){
+        width: $width;
+    }
+    @if($height != ""){
+        height: $height;
+    }
+}
+
+@mixin setZoomEffect($scale) {
+    transform: scale($scale);
+	transition: transform 0.2s;
+}

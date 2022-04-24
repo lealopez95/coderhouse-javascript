@@ -1,0 +1,25 @@
+{
+  "name": "restaurante-web-lopez",
+  "version": "1.0.0",
+  "description": "web development project of coderhouse",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build-css": "node-sass --include-path scss scss/main.scss css/styles.css",
+    "watch-css": "nodemon -e scss -x \"npm run build-css\""
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/lealopez95/coderhouse-itadakimasu.git"
+  },
+  "author": "Leandro E. Lopez",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/lealopez95/coderhouse-itadakimasu/issues"
+  },
+  "homepage": "https://github.com/lealopez95/coderhouse-itadakimasu#readme",
+  "devDependencies": {
+    "node-sass": "^7.0.1",
+    "nodemon": "^2.0.15"
+  }
+}

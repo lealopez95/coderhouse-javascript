@@ -1,12 +1,200 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Curso de Javascript</title>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta name="description" content="Itadakimasu! Es un restaurante japones en el que podés ordenar desde la comodidad de tu casa!">
+	<meta name="keywords" content="COMIDA JAPONESA, SUSHI, PEDIR ONLINE, ORDENAR ONLINE, RESTAURANTE JAPONES, RESTAURANTE, ITADAKIMASU">
+	<meta property="og:image" content="https://lealopez95.github.io/coderhouse-itadakimasu/media/images/logos/logo_1.png" />
+	<meta property="og:image:secure_url" content="https://lealopez95.github.io/coderhouse-itadakimasu/media/images/logos/logo_1.png" />
+	<meta property="og:image:type" content="image/png" />
+	<meta property="og:image:width" content="400" />
+	<meta property="og:image:height" content="300" />
+	<meta property="og:image:alt" content="Itadakimasu! logo" />
+	<title>Inicio | Itadakimasu!</title>
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+	<link rel="shortcut icon" href="favicon.ico">
+	<link rel="stylesheet" href="css/styles.css" media="all">
 </head>
-<body>
-    <script src="js/index.js"></script>
+<body class="body_grid_1_col">
+	<span class="back_to_top" onclick="window.scrollTo(0, 0);"><img src="./media/images/icons/arrow_up.svg" alt="flecha apuntando arriba"></span>
+	<header class="header">
+		<a href="#" class="header__logo">
+			<img src="media/images/logos/logo_1.png" alt="Logo Itadakimasu!" class="header__logo__img">
+		</a>
+		<nav class="nav navbar navbar-light navbar-expand-md">
+			<button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#navMainMenu" aria-controls="navMainMenu" aria-label="menu">
+				<span class="navbar-toggler-icon"></span>
+			</button>
+			<div class="offcanvas offcanvas-start" tabindex="-1" id="navMainMenu" aria-labelledby="navbarOffcanvasLgLabel">
+				<div class="offcanvas-header align-self-end">
+					<button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+				</div>
+				<ul class="navbar-nav align-items-center">
+					<li class="nav-item">
+						<a class="nav-link active" aria-current="page" href="#">Inicio</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" href="pages/contact-us.html">Contacto</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" href="pages/menu.html">Men&uacute;</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" href="pages/reservations.html">Reservar</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" href="pages/online-order.html">Pedir Online</a>
+					</li>
+				</ul>
+			</div>
+		</nav>
+		<a class="header__basket" data-bs-toggle="offcanvas" href="#chart" role="button" aria-controls="chart" aria-label="carrito">
+			<img class="header__basket__img" src="media/images/icons/shopping-basket.svg" alt="Canasta de compras">
+		</a>
+		<div class="header__basket__container offcanvas offcanvas-end" tabindex="-1" id="chart" aria-labelledby="chartLabel">
+			<div class="offcanvas-header">
+				<h2 id="chartLabel">Carrito</h2>
+				<button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+			</div>
+			<div class="offcanvas-body">
+				<div class="header__basket__section">
+					<h3>Pedido</h3>
+					<ul class="header__basket__section__list">
+						<li class="header__basket__section__list__item">
+							<p class="header__basket__section__list__item__text">Plato 1</p>
+							<input class="header__basket__section__list__item__qty" type="number" name="quantity" id="quantity_plato_1" value="2">
+							<p class="header__basket__section__list__item__text">$500</p>
+							<a href="#">
+								<img class="header__basket__section__list__item__icon" src="media/images/icons/trash_icon.svg" alt="tacho de basura">
+							</a>
+						</li>
+						<li class="header__basket__section__list__item">
+							<p class="header__basket__section__list__item__text">Plato 4</p>
+							<input class="header__basket__section__list__item__qty" type="number" name="quantity" id="quantity_plato_2" value="1">
+							<p class="header__basket__section__list__item__text">$100</p>
+							<a href="#">
+								<img class="header__basket__section__list__item__icon" src="media/images/icons/trash_icon.svg" alt="tacho de basura">
+							</a>
+						</li>
+					</ul>
+				</div>
+				<div class="header__basket__section">
+					<h3>Resumen</h3>
+					<ul class="header__basket__section__list">
+						<li class="header__basket__section__list__item">
+							<label for="discount_code">C&oacute;digo de descuento</label>
+							<input class="header__basket__section__list__item__discount_code" type="text" name="discount_code" id="discount_code" placehulder="C&oacute;digo">
+							<p class="header__basket__section__list__item__text">-20%</p>
+						</li>
+						<li class="header__basket__section__list__item">
+							<p class="header__basket__section__list__item__text">Env&iacute;o</p>
+							<p class="header__basket__section__list__item__text">$45</p>
+						</li>
+						<li class="header__basket__section__list__item">
+							<p class="header__basket__section__list__item__text">Subtotal</p>
+							<p class="header__basket__section__list__item__text">$645</p>
+						</li>
+						<li class="header__basket__section__list__item">
+							<p class="header__basket__section__list__item__text">Total</p>
+							<p class="header__basket__section__list__item__text">$516</p>
+						</li>
+						<li class="header__basket__section__list__item header__basket__section__list__item--align_center">
+							<button class="header__basket__section__list__item__button">Ir a pagar</button>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+	</header>
+	<main>
+		<section class="banner banner--background-img banner--fade-in">
+			<div class="banner__image">
+				<img class="banner__image__logo" src="media/images/logos/logo_1.png" alt="Logo Itadakimasu!">
+			</div>
+			<div class="banner__textbox">
+				<h1 class="banner__textbox__title">Itadakimasu! Ordena y disfruta de <em>la mejor comida japonesa</em>, con ingredientes frescos y de la mejor calidad</h1>
+				<a class="banner__textbox__link" href="pages/online-order.html">
+					<span class="banner__textbox__link__text">Pedir ahora</span>
+				</a>
+			</div>
+		</section>
+		<section class="banner banner--inline banner--background-linen">
+			<div class="banner__textbox">
+				<h2 class="banner__textbox__title banner__textbox__title--black">Jap&oacute;n en tu mesa!</h2>
+				<p class="banner__textbox__text">Al cuidado de cada detalle, seleccionamos materia prima de estación de la más alta calidad, aportando a nuestra cocina, aromas, sabores y texturas, que dan como resultado una propuesta gastronómica de excelencia. Itadakimasu!.</p>
+				<a class="banner__textbox__link" href="pages/online-order.html">
+					<span class="banner__textbox__link__text">Hac&eacute; tu pedido!</span>
+				</a>
+			</div>
+			<div class="banner__images">
+				<img class="banner__images__img banner__images__img--front" src="media/images/food/oniguiri.webp" alt="oniguiri">
+				<img class="banner__images__img banner__images__img--top-back-right" src="media/images/food/sushi.webp" alt="sushi">
+			</div>
+		</section>
+		<section class="testimonials">
+			<h2 class="testimonials__title">Testimonios</h2>
+			<div class="testimonials__container">
+				<div class="testimonials__item">
+					<img class="testimonials__img" src="media/images/icons/testimonial_1.jpg" alt="foto de perfil">
+					<p class="testimonials__text">Voy siempre con mi grupo de amigos, nunca defrauda. El yakimeshi es súper abundante y muy rico. Mis amigos son fanaticos de sus piezas de sushi. Precios accesibles!</p>
+				</div>
+				<div class="testimonials__item">
+					<img class="testimonials__img" src="media/images/icons/testimonial_2.jpg" alt="foto de perfil">
+					<p class="testimonials__text">Muy rico todo y los tragos que probé me encantaron! Hasta el platito con arroz que te dan de cortesía esta genial.
+						No diría que es tan barato pero tampoco ta caro como otros lugares.
+						Ambiente muy lindo, volvería a probar los platos principales, ya que esta vez solo llegamos a picotear varias cosas.</p>
+				</div>
+				<div class="testimonials__item">
+					<img class="testimonials__img" src="media/images/icons/testimonial_3.webp" alt="foto de perfil">
+					<p class="testimonials__text">Excelente Comida, fresca, sushi man deluxe, ambiente, atención, higiene e iluminación. Carta super clara y legible, Cócteles deliciosos y Comida EXCELENTE.</p>
+				</div>
+			</div>
+		</section>
+	</main>
+	<footer class="footer">
+		<div class="footer__top">
+			<div class="footer__top__section">
+				<h4 class="footer__top__section__title">Horarios:</h4>
+				<ul>
+					<li>Lun a Jue de 12hs a 22hs</li>
+					<li>Vie a Dom de 12hs a 01hs</li>
+				</ul>
+			</div>
+			<address class="footer__top__section">
+				<h4 class="footer__top__section__title">Contacto:</h4>
+				<ul class="footer__top__section__adress">
+					<li>Direcci&oacute;n: Avenue A 123</li>
+					<li>Tel: <a href="tel:+5401133335555">11-3333-5555</a>  / Tel: <a href="tel:+5401144446666">11-4444-6666</a></li>
+					<li>Mail: <a href="mailto:contacto@itadakimasu.com">contacto@itadakimasu.com</a></li>
+				</ul>
+			</address>
+			<div class="footer__top__section footer__top__section--align-center">
+				<img class="footer__logo__img" src="media/images/logos/logo_1.png" alt="Logo Itadakimasu!">
+			</div>
+			<div class="footer__top__section footer__top__section--align-center">
+				<h4 class="footer__top__section__title">Seguinos en:</h4>
+				<a class="footer__top__social" href="https://www.facebook.com/" target="_blank" rel="external noopener noreferrer">
+					<img class="footer__top__social__img" src="media/images/icons/facebook_icon.svg" alt="facebook icon">
+				</a>
+				<a class="footer__top__social" href="https://www.instagram.com/" target="_blank" rel="external noopener noreferrer">
+					<img class="footer__top__social__img" src="media/images/icons/instagram_icon.svg" alt="instagram icon">
+				</a>
+			</div>
+		</div>
+		<div class="footer__bottom">
+			<ul class="footer__bottom__list">
+				<li class="footer__bottom__list__item">@Copyright Leandro Lopez 2022</li>
+				<li class="footer__bottom__list__item">
+					<a class="footer__bottom__list__link" href="#">Aviso Legal</a>
+				</li>
+				<li class="footer__bottom__list__item">
+					<a class="footer__bottom__list__link" href="#">Política de privacidad</a>
+				</li>
+			</ul>
+		</div>
+	</footer>
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
 </body>
 </html>

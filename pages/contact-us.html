@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta name="description" content="Contacta al restaurante Itadakimasu! a traves de un formulario.">
+	<meta name="keywords" content="CONTACTAR, CONTACTO, COMIDA JAPONESA, RESTAURANTE JAPONES, RESTAURANTE">
+	<title>Contactanos | Itadakimasu!</title>
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+	<link rel="shortcut icon" href="../favicon.ico">
+	<link rel="stylesheet" href="../css/styles.css">
+</head>
+<body class="body_grid_1_col">
+	<span class="back_to_top" onclick="window.scrollTo(0, 0);"><img src="../media/images/icons/arrow_up.svg" alt="flecha apuntando arriba"></span>
+	<header class="header">
+		<a href="../index.html" class="header__logo">
+			<img src="../media/images/logos/logo_1.png" alt="Logo Itadakimasu!" class="header__logo__img">
+		</a>
+		<nav class="nav navbar navbar-light navbar-expand-md">
+			<button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#navMainMenu" aria-controls="navMainMenu" aria-label="menu">
+				<span class="navbar-toggler-icon"></span>
+			</button>
+			<div class="offcanvas offcanvas-start" tabindex="-1" id="navMainMenu" aria-labelledby="navbarOffcanvasLgLabel">
+				<div class="offcanvas-header align-self-end">
+					<button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+				</div>
+				<ul class="navbar-nav align-items-center">
+					<li class="nav-item">
+						<a class="nav-link" href="../index.html">Inicio</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link active" aria-current="page" href="#">Contacto</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" href="./menu.html">Men&uacute;</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" href="./reservations.html">Reservar</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" href="./online-order.html">Pedir Online</a>
+					</li>
+				</ul>
+			</div>
+		</nav>
+		<a class="header__basket" data-bs-toggle="offcanvas" href="#chart" role="button" aria-controls="chart" aria-label="carrito">
+			<img class="header__basket__img" src="../media/images/icons/shopping-basket.svg" alt="Canasta de compras">
+		</a>
+		<div class="header__basket__container offcanvas offcanvas-end" tabindex="-1" id="chart" aria-labelledby="chartLabel">
+			<div class="offcanvas-header">
+				<h2 id="chartLabel">Carrito</h2>
+				<button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+			</div>
+			<div class="offcanvas-body">
+				<div class="header__basket__section">
+					<h3>Pedido</h3>
+					<ul class="header__basket__section__list">
+						<li class="header__basket__section__list__item">
+							<p class="header__basket__section__list__item__text">Plato 1</p>
+							<input class="header__basket__section__list__item__qty" type="number" name="quantity" id="quantity_plato_1" value="2">
+							<p class="header__basket__section__list__item__text">$500</p>
+							<a href="#">
+								<img class="header__basket__section__list__item__icon" src="../media/images/icons/trash_icon.svg" alt="tacho de basura">
+							</a>
+						</li>
+						<li class="header__basket__section__list__item">
+							<p class="header__basket__section__list__item__text">Plato 4</p>
+							<input class="header__basket__section__list__item__qty" type="number" name="quantity" id="quantity_plato_2" value="1">
+							<p class="header__basket__section__list__item__text">$100</p>
+							<a href="#">
+								<img class="header__basket__section__list__item__icon" src="../media/images/icons/trash_icon.svg" alt="tacho de basura">
+							</a>
+						</li>
+					</ul>
+				</div>
+				<div class="header__basket__section">
+					<h3>Resumen</h3>
+					<ul class="header__basket__section__list">
+						<li class="header__basket__section__list__item">
+							<label for="discount_code">C&oacute;digo de descuento</label>
+							<input class="header__basket__section__list__item__discount_code" type="text" name="discount_code" id="discount_code" placehulder="C&oacute;digo">
+							<p class="header__basket__section__list__item__text">-20%</p>
+						</li>
+						<li class="header__basket__section__list__item">
+							<p class="header__basket__section__list__item__text">Env&iacute;o</p>
+							<p class="header__basket__section__list__item__text">$45</p>
+						</li>
+						<li class="header__basket__section__list__item">
+							<p class="header__basket__section__list__item__text">Subtotal</p>
+							<p class="header__basket__section__list__item__text">$645</p>
+						</li>
+						<li class="header__basket__section__list__item">
+							<p class="header__basket__section__list__item__text">Total</p>
+							<p class="header__basket__section__list__item__text">$516</p>
+						</li>
+						<li class="header__basket__section__list__item header__basket__section__list__item--align_center">
+							<button class="header__basket__section__list__item__button">Ir a pagar</button>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+	</header>
+	<main>
+		<section class="contact-form container-fluid">
+			<div class="row justify-content-center">
+				<div class="contact-form__container contact-form__container--black col-sm-6">
+					<div class="row justify-content-center text-center">
+						<div class="col-sm-10 my-5">
+							<h1 class="contact-form__container__title">Env&iacute;anos tu consulta</h1>
+						</div>
+					</div>
+					<div class="row justify-content-center text-start">
+						<div class="col-sm-10">
+							<form action="javascript:alert('Enviamos tu mensaje!');" method="post">
+								<div class="form-floating mb-3">
+									<input type="text" class="form-control" id="name" name="name" placeholder="Tu nombre" required>
+									<label for="name" class="form-label">Nombre:</label>
+								</div>
+								<div class="form-floating mb-3">
+									<input type="email" class="form-control" id="email" name="email" placeholder="email@email.com" required>
+									<label for="email" class="form-label">Email:</label>
+								</div>
+								<div class="form-floating mb-3">
+									<input type="tel" class="form-control" id="phone" name="phone" placeholder="Tu tel&eacute;fono" required>
+									<label for="phone" class="form-label">Tu tel&eacute;fono:</label>
+								</div>
+								<div class="form-floating mb-3">
+									<textarea class="form-control" name="message" id="message" cols="30" rows="10" required></textarea>
+									<label for="message" class="form-label">Tu mensaje:</label>
+								</div>
+								<div class="mb-5 d-flex justify-content-center">
+									<button type="submit" class="btn btn-lg btn-light">Enviar</button>
+								</div>
+							</form>
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
+		<section class="find-us">
+			<h2 class="find-us__title">D&oacute;nde estamos?</h2>
+			<iframe class="find-us__map" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d5519.208023880021!2d-58.516064068465845!3d-34.661250258009744!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x95bcc93a3ba895ab%3A0xf7aedd3fb3853a84!2sMcDonald&#39;s!5e0!3m2!1ses-419!2sar!4v1644042875935!5m2!1ses-419!2sar" width="400" height="300" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+			<div class="find-us__data">
+				<address class="find-us__data__section">
+					<h3 class="find-us__data__section__title">Contacto:</h3>
+					<ul class="find-us__data__section__contact">
+						<li>
+							Direcci&oacute;n: Avenue A 123
+						</li>
+						<li>
+							Tel:<a href="tel:+5401133335555"> 11-3333-5555</a>  / Tel:<a href="tel:+5401144446666"> 11-4444-6666</a>
+						</li>
+						<li>
+							Mail:<a href="mailto:contacto@itadakimasu.com"> contacto@itadakimasu.com</a>
+						</li>
+					</ul>
+				</address>
+				<div class="find-us__data__section">
+					<h3 class="find-us__data__section__title">Seguinos en:</h3>
+					<div class="find-us__data__section__social">
+						<a href="https://www.facebook.com/" target="_blank" rel="external noopener noreferrer">
+							<img class="find-us__data__section__social__icon" src="../media/images/icons/facebook_icon.svg" alt="facebook icon">
+						</a>
+						<a href="https://www.instagram.com/" target="_blank" rel="external noopener noreferrer">
+							<img class="find-us__data__section__social__icon" src="../media/images/icons/instagram_icon.svg" alt="instagram icon">
+						</a>
+					</div>
+				</div>
+			</div>
+		</section>
+	</main>
+	<footer class="footer">
+		<div class="footer__top">
+			<div class="footer__top__section">
+				<h4 class="footer__top__section__title">Horarios:</h4>
+				<ul>
+					<li>Lun a Jue de 12hs a 22hs</li>
+					<li>Vie a Dom de 12hs a 01hs</li>
+				</ul>
+			</div>
+			<address class="footer__top__section">
+				<h4 class="footer__top__section__title">Contacto:</h4>
+				<ul class="footer__top__section__adress">
+					<li>Direcci&oacute;n: Avenue A 123</li>
+					<li>Tel: <a href="tel:+5401133335555">11-3333-5555</a>  / Tel: <a href="tel:+5401144446666">11-4444-6666</a></li>
+					<li>Mail: <a href="mailto:contacto@itadakimasu.com">contacto@itadakimasu.com</a></li>
+				</ul>
+			</address>
+			<div class="footer__top__section footer__top__section--align-center">
+				<img class="footer__logo__img" src="../media/images/logos/logo_1.png" alt="Logo Itadakimasu!">
+			</div>
+			<div class="footer__top__section">
+				<h4 class="footer__top__section__title">Seguinos en:</h4>
+				<a class="footer__top__social" href="https://www.facebook.com/" target="_blank" rel="external noopener noreferrer">
+					<img class="footer__top__social__img" src="../media/images/icons/facebook_icon.svg" alt="facebook icon">
+				</a>
+				<a class="footer__top__social" href="https://www.instagram.com/" target="_blank" rel="external noopener noreferrer">
+					<img class="footer__top__social__img" src="../media/images/icons/instagram_icon.svg" alt="instagram icon">
+				</a>
+			</div>
+		</div>
+		<div class="footer__bottom">
+			<ul class="footer__bottom__list">
+				<li class="footer__bottom__list__item">@Copyright Leandro Lopez 2022</li>
+				<li class="footer__bottom__list__item">
+					<a class="footer__bottom__list__link" href="#">Aviso Legal</a>
+				</li>
+				<li class="footer__bottom__list__item">
+					<a class="footer__bottom__list__link" href="#">Política de privacidad</a>
+				</li>
+			</ul>
+		</div>
+	</footer>
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+</body>
+</html>

@@ -1,0 +1,65 @@
+@font-face {
+	font-family: "Kaushan";
+	src: url("../fonts/KaushanScript-Regular.otf") format("opentype");
+	font-display: swap;
+}
+
+@font-face {
+	font-family: "Vegur-light";
+	src: url("../fonts/Vegur-Light.otf") format("opentype");
+	font-display: swap;
+}
+
+@font-face {
+	font-family: "Vegur-regular";
+	src: url("../fonts/Vegur-regular.otf") format("opentype");
+	font-display: swap;
+}
+
+* {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+}
+
+ul {
+	padding: 0 !important; // to override bootstrap everywhere
+}
+
+li {
+	list-style: none;
+}
+
+a {
+	text-decoration: none;
+	color: $black;
+
+	&:hover {
+		color: $dark-orange;
+	}
+}
+
+body {
+	font-family: Kaushan, sans-serif;
+	background-color: $white;
+	font-size: 1.2rem;
+}
+
+p {
+	font-family: Vegur-light, sans-serif;
+}
+
+.body_grid_1_col {
+	display: grid;
+	grid-template-areas:
+		"header"
+		"section"
+		"main"
+		"footer";
+   grid-template-rows: 130px auto auto 1fr;
+   grid-template-columns: 100%;
+}
+
+main {
+	grid-area: main;
+}

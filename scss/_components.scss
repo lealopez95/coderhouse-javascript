@@ -1,0 +1,474 @@
+#section {
+	grid-area: section;
+	min-height: 50vh;
+}
+
+.back_to_top {
+	position: fixed;
+	bottom: 1rem;
+	right: 2rem;
+	background-color: $white;
+	padding: 0.5rem 0.7rem;
+	border: $black 2px solid;
+	z-index: 10;
+
+	img {
+		@include setSizes(30px, 30px);
+	}
+
+	&:hover {
+		cursor: pointer;
+	}
+}
+
+.banner {
+	display: grid;
+	grid-template-columns: 100%;
+	grid-template-rows: min-content 1fr;
+	align-items: center;
+	justify-items: center;
+
+	&__image {
+		background-color: $linen;
+		text-align: center;
+		margin: 25px 0;
+		border-radius: 50%;
+
+		&__logo {
+			@include setSizes(100%);
+		}
+	}
+
+	&__textbox {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		text-align: center;
+		font-size: 1.2rem;
+		@include setSizes(50%);
+
+		&__title {
+			font-size: 2rem;
+			font-weight: lighter;
+			color: $white;
+
+			em {
+				color: $dark-orange;
+				font-weight: bold;
+			}
+
+			&--black {
+				color: $black;
+			}
+		}
+
+		&__text {
+			color: $ruby-red;
+
+			&--light {
+				color: $white;
+			}
+		}
+
+		&__link {
+			display: block;
+			@include setSizes(200px);
+			background-color: $ruby-red;
+			margin: 25px 0;
+			border-radius: 15px;
+			padding: 20px;
+
+			&__text {
+				font-size: 1.6rem;
+				color: $white;
+				position: relative;
+
+				&:after {
+					content: "";
+					position: absolute;
+					@include setSizes(100%, 3px);
+					top: 100%;
+					left: 0;
+					background-color: $white;
+					transform: scaleX(0);
+					transform-origin: right;
+					transition: transform 0.5s;
+				}
+
+				&:hover::after {
+					transform: scaleX(1);
+					transform-origin: left;
+				}
+			}
+		}
+	}
+
+	&__images {
+		display: flex;
+		align-items: center;
+		position: relative;
+		padding: 25px 0;
+
+		&__img {
+			@include setSizes(400px, 300px);
+			border-radius: 25px;
+
+			&--front {
+				@include setSizes(70%);
+				z-index: 1;
+				margin-top: 5%;
+			}
+
+			&--top-back-right {
+				position: absolute;
+				right: 5%;
+				top: 5%;
+			}
+		}
+	}
+	
+
+	&--one_row {
+		grid-template-rows: auto;	
+		padding: 3rem 0;
+	}
+
+	&--inline {
+		justify-content: center;
+		grid-template-columns: 42% 42%;
+		grid-template-rows: auto;
+		grid-gap: 2rem;
+		padding: 3rem 0;
+
+		.banner__textbox {
+			@include setSizes(75%);
+			justify-self: end;
+		}
+
+		.banner__images {
+			justify-self: start;
+		}
+	}
+
+	&--background-linen {
+		background-color: $linen;
+	}
+
+	&--background-img {
+		background-image: url('../media/images/backgrounds/flat-lay-sushi-arrangement-with-copy-space.jpg');
+		background-repeat: no-repeat;
+		background-size: cover;
+		background-attachment: fixed;
+		position: relative;
+
+		&--desing-2 {
+			background-image: url('../media/images/backgrounds/soy-sauce-and-soy-bean-on-wooden-table.jpg');
+		}
+
+		.banner__textbox__title {
+			z-index: 5;
+		}
+
+		& > * {
+			z-index: 5;
+		}
+		
+		&::before {
+			content: "";
+			@include setSizes(100%, 100%);
+			background-color: rgba(0, 0, 0, 0.4);
+			position: absolute;
+			z-index: 1;
+		}
+	}
+
+	&--fade-in {
+		@include setAnimation("fade-in");
+	}
+
+	&--fade-down {
+		@include setAnimation("fade-down");
+	}
+}
+
+.testimonials {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	background-color: $black;
+	text-align: center;
+	padding: 25px 0;
+
+	&__container {
+		@include setSizes(100%);
+		display: flex;
+		flex-direction: row;
+		justify-content: space-evenly;
+		flex-wrap: wrap;
+	}
+
+	&__item {
+		max-width: 300px;
+	}
+
+	&__title {
+		margin-bottom: 50px;
+		color: $dark-orange;
+		font-size: 2rem;
+	}
+
+	&__img {
+		@include setSizes(200px);
+		border-radius: 50%;
+		margin-bottom: 25px;
+	}
+
+	&__text {
+		color: $dark-orange;
+	}
+}
+
+.contact-form {
+	background-image: url('../media/images/backgrounds/Mitarashi+Dango.jpg');
+	background-repeat: no-repeat;
+	background-size: cover;
+	background-attachment: fixed;
+
+	&__container {
+		margin: 5rem 0;
+		border-radius: 50px;
+		@include setAnimation("fade-in-bounce");
+
+		label {
+			font-family: Vegur-light, sans-serif;
+		}
+
+		&__title {
+			font-size: 1.8rem;
+			color: $white;
+		}
+
+		&--black {
+			background-color: rgba(1, 1, 1, 0.80);
+		}
+
+	}
+}
+
+.find-us {
+	display: grid;
+	grid-template-columns: max-content max-content;
+	grid-template-rows: repeat(2, auto);
+	grid-template-areas:
+		"find_us_title find_us_title"
+		"find_us_map find_us_data";
+	padding: 50px 0;
+	grid-gap: 25px;
+	background-color: $linen;
+	place-items: center;
+	place-content: center;
+
+	&__title {
+		font-size: 1.8rem;
+		grid-area: find_us_title;
+	}
+
+	&__map {
+		grid-area: find_us_map;
+	}
+
+	&__data {
+		grid-area: find_us_data;
+		display: flex;
+		flex-direction: column;
+		align-items: flex-start;
+		gap: 10px;
+
+		&__section {
+			display: flex;
+			flex-direction: column;
+			gap: 5px;
+
+			&__title {
+				font-size: 1.4rem;
+			}
+
+			&__contact {
+				font-family: Vegur-regular, sans-serif;
+				a {
+					color: $ruby-red;
+
+					&:hover{
+						color: $dark-orange;
+					}
+				}
+			}
+
+			&__social__icon {
+				@include setSizes(30px, 30px);
+			}
+		}
+	}
+}
+
+.menu {
+	background-color: $linen;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+
+	&__box {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		background-color: $white;
+		border: 4px double $dark-orange;
+		@include setSizes(80%);
+		margin: 60px 0;
+		gap: 20px;
+
+		&__logo {
+			@include setSizes(275px);
+		}
+
+		&__category {
+			padding: 1rem 5rem;
+
+			&__title {
+				border-bottom: $black 1px solid;
+				font-size: 2rem;
+			}
+
+			&__plates {
+				display: flex;
+				flex-wrap: wrap;
+				justify-content: center;
+
+				&__item {
+					display: flex;
+					flex-direction: column;
+					align-items: center;
+					gap: 10px;
+					padding: 1rem;
+
+					&__img {
+						@include setSizes(auto);
+						max-width: 100%;
+						max-height: 160px;
+					}
+
+					&__title {
+						font-size: 1.6rem;
+					}
+
+					&__description {
+						text-align: center;
+					}
+
+					&__price {
+						font-weight: bold;
+					}
+					
+					&--inline {
+						flex-direction: row;
+						@include setSizes(560px);
+						max-height: 200px;
+
+						.menu__box__category__plates__item__img {
+							@include setSizes(25%);
+						}
+
+						.menu__box__category__plates__item__text {
+							display: flex;
+							flex-direction: column;
+							max-height: 100%;
+							align-items: center;
+							justify-content: flex-start;
+							overflow-y: hidden;
+						}
+					}
+				}
+			}
+
+			&--background-lavander {
+				background-color: $linen;
+			}
+
+			&--red-border {
+				border: 4px double $ruby-red;
+			}
+		}
+
+		&--order {
+			background-color: unset;
+			border: none;
+			margin: 0;
+		}
+	}
+}
+
+.restaurants {
+	background-color: $black;
+
+	&__box {
+		display: flex;
+		justify-content: space-around;
+		padding: 2rem 0;
+
+		&__item {
+			@include setSizes(30%);
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+			justify-content: center;
+			gap: 10px;
+			color: $white;
+
+			&__title {
+				font-size: 2rem;
+			}
+
+			&__img {
+				@include setSizes("", 100%);
+				max-width: 90%;
+			}
+
+			&__text {
+				text-align: center;
+			}
+
+			&__links {
+				display: flex;
+				justify-content: space-evenly;
+				@include setSizes(90%);
+
+				&__text {
+					color: $ruby-red;
+				}				
+			}
+		}
+	}
+}
+
+.order {
+	display: grid;
+	grid-template-columns: 1fr;
+	grid-template-rows: 90px auto auto;
+	grid-gap: 2rem;
+	place-items: center;
+	background-image: url('../media/images/backgrounds/japanese_themed_pattern_background_0904.jpg');
+	background-repeat: no-repeat;
+	background-size: cover;
+	background-attachment: fixed;
+	padding-top: 2rem;
+
+	&__filters {
+		@include setSizes(60%);
+		display: grid;
+		grid-template-columns: max-content max-content;
+		justify-content: space-between;
+		background-color: $white;
+		padding: 1rem;
+		border-radius: 1rem;
+	}
+}

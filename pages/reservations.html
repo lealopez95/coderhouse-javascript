@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta name="description" content="Realiza tu reserva online en Itadakimasu!">
+	<meta name="keywords" content="RESERVAR, RESTAURANTE JAPONES, ITADAKIMASU">
+	<title>Reservas | Itadakimasu!</title>
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+	<link rel="shortcut icon" href="../favicon.ico">
+	<link rel="stylesheet" href="../css/styles.css">
+</head>
+<body class="body_grid_1_col">
+	<span class="back_to_top" onclick="window.scrollTo(0, 0);"><img src="../media/images/icons/arrow_up.svg" alt="flecha apuntando arriba"></span>
+	<header class="header">
+		<a href="../index.html" class="header__logo">
+			<img src="../media/images/logos/logo_1.png" alt="Logo Itadakimasu!" class="header__logo__img">
+		</a>
+		<nav class="nav navbar navbar-light navbar-expand-md">
+			<button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#navMainMenu" aria-controls="navMainMenu" aria-label="menu">
+				<span class="navbar-toggler-icon"></span>
+			</button>
+			<div class="offcanvas offcanvas-start" tabindex="-1" id="navMainMenu" aria-labelledby="navbarOffcanvasLgLabel">
+				<div class="offcanvas-header align-self-end">
+					<button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+				</div>
+				<ul class="navbar-nav align-items-center">
+					<li class="nav-item">
+						<a class="nav-link" href="../index.html">Inicio</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" href="./contact-us.html">Contacto</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" href="./menu.html">Men&uacute;</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link active" aria-current="page" href="#">Reservar</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" href="./online-order.html">Pedir Online</a>
+					</li>
+				</ul>
+			</div>
+		</nav>
+		<a class="header__basket" data-bs-toggle="offcanvas" href="#chart" role="button" aria-controls="chart" aria-label="carrito">
+			<img class="header__basket__img" src="../media/images/icons/shopping-basket.svg" alt="Canasta de compras">
+		</a>
+		<div class="header__basket__container offcanvas offcanvas-end" tabindex="-1" id="chart" aria-labelledby="chartLabel">
+			<div class="offcanvas-header">
+				<h2 id="chartLabel">Carrito</h2>
+				<button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+			</div>
+			<div class="offcanvas-body">
+				<div class="header__basket__section">
+					<h3>Pedido</h3>
+					<ul class="header__basket__section__list">
+						<li class="header__basket__section__list__item">
+							<p class="header__basket__section__list__item__text">Plato 1</p>
+							<input class="header__basket__section__list__item__qty" type="number" name="quantity" id="quantity_plato_1" value="2">
+							<p class="header__basket__section__list__item__text">$500</p>
+							<a href="#">
+								<img class="header__basket__section__list__item__icon" src="../media/images/icons/trash_icon.svg" alt="tacho de basura">
+							</a>
+						</li>
+						<li class="header__basket__section__list__item">
+							<p class="header__basket__section__list__item__text">Plato 4</p>
+							<input class="header__basket__section__list__item__qty" type="number" name="quantity" id="quantity_plato_2" value="1">
+							<p class="header__basket__section__list__item__text">$100</p>
+							<a href="#">
+								<img class="header__basket__section__list__item__icon" src="../media/images/icons/trash_icon.svg" alt="tacho de basura">
+							</a>
+						</li>
+					</ul>
+				</div>
+				<div class="header__basket__section">
+					<h3>Resumen</h3>
+					<ul class="header__basket__section__list">
+						<li class="header__basket__section__list__item">
+							<label for="discount_code">C&oacute;digo de descuento</label>
+							<input class="header__basket__section__list__item__discount_code" type="text" name="discount_code" id="discount_code" placehulder="C&oacute;digo">
+							<p class="header__basket__section__list__item__text">-20%</p>
+						</li>
+						<li class="header__basket__section__list__item">
+							<p class="header__basket__section__list__item__text">Env&iacute;o</p>
+							<p class="header__basket__section__list__item__text">$45</p>
+						</li>
+						<li class="header__basket__section__list__item">
+							<p class="header__basket__section__list__item__text">Subtotal</p>
+							<p class="header__basket__section__list__item__text">$645</p>
+						</li>
+						<li class="header__basket__section__list__item">
+							<p class="header__basket__section__list__item__text">Total</p>
+							<p class="header__basket__section__list__item__text">$516</p>
+						</li>
+						<li class="header__basket__section__list__item header__basket__section__list__item--align_center">
+							<button class="header__basket__section__list__item__button">Ir a pagar</button>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+	</header>
+	<main>
+		<section class="restaurants">
+			<div class="restaurants__box">
+				<div class="restaurants__box__item">
+					<h2 class="restaurants__box__item__title">El dojo Ever green</h2>
+					<img class="restaurants__box__item__img" src="../media/images/restaurants/restaurant_1.jpg" alt="Restaurante El dojo Ever green">
+					<p class="restaurants__box__item__text">Direcci&oacute;n</p>
+					<p class="restaurants__box__item__text">Av siempre viva 742, Springfield</p>
+					<div class="restaurants__box__item__links">
+						<a class="restaurants__box__item__links__text" href="#">Reservar</a>
+						<a class="restaurants__box__item__links__text" href="./online-order.html">Pedir Online</a>
+					</div>
+				</div>
+				<div  class="restaurants__box__item">
+					<h2 class="restaurants__box__item__title">Ichiraku Ramen</h2>
+					<img class="restaurants__box__item__img" src="../media/images/restaurants/Ichiraku.jpg" alt="Restaurante Ichiraku Ramen">
+					<p class="restaurants__box__item__text">Direcci&oacute;n</p>
+					<p class="restaurants__box__item__text">Avenue A 123, Konoha</p>
+					<div class="restaurants__box__item__links">
+						<a class="restaurants__box__item__links__text" href="#">Reservar</a>
+						<a class="restaurants__box__item__links__text" href="./online-order.html">Pedir Online</a>
+					</div>
+				</div>
+				<div  class="restaurants__box__item">
+					<h2 class="restaurants__box__item__title">Dango family</h2>
+					<img class="restaurants__box__item__img" src="../media/images/restaurants/restaurant_2.jpg" alt="Restaurante Dango family">
+					<p class="restaurants__box__item__text">Direcci&oacute;n</p>
+					<p class="restaurants__box__item__text">Calle falsa 123, Villa lugano</p>
+					<div class="restaurants__box__item__links">
+						<a class="restaurants__box__item__links__text" href="#">Reservar</a>
+						<a class="restaurants__box__item__links__text" href="./online-order.html">Pedir Online</a>
+					</div>
+				</div>
+			</div>
+		</section>
+	</main>
+	<footer class="footer">
+		<div class="footer__top">
+			<div class="footer__top__section">
+				<h4 class="footer__top__section__title">Horarios:</h4>
+				<ul>
+					<li>Lun a Jue de 12hs a 22hs</li>
+					<li>Vie a Dom de 12hs a 01hs</li>
+				</ul>
+			</div>
+			<address class="footer__top__section">
+				<h4 class="footer__top__section__title">Contacto:</h4>
+				<ul class="footer__top__section__adress">
+					<li>Direcci&oacute;n: Avenue A 123</li>
+					<li>Tel: <a href="tel:+5401133335555">11-3333-5555</a>  / Tel: <a href="tel:+5401144446666">11-4444-6666</a></li>
+					<li>Mail: <a href="mailto:contacto@itadakimasu.com">contacto@itadakimasu.com</a></li>
+				</ul>
+			</address>
+			<div class="footer__top__section footer__top__section--align-center">
+				<img class="footer__logo__img" src="../media/images/logos/logo_1.png" alt="Logo Itadakimasu!">
+			</div>
+			<div class="footer__top__section">
+				<h4 class="footer__top__section__title">Seguinos en:</h4>
+				<a class="footer__top__social" href="https://www.facebook.com/" target="_blank" rel="external noopener noreferrer">
+					<img class="footer__top__social__img" src="../media/images/icons/facebook_icon.svg" alt="facebook icon">
+				</a>
+				<a class="footer__top__social" href="https://www.instagram.com/" target="_blank" rel="external noopener noreferrer">
+					<img class="footer__top__social__img" src="../media/images/icons/instagram_icon.svg" alt="instagram icon">
+				</a>
+			</div>
+		</div>
+		<div class="footer__bottom">
+			<ul class="footer__bottom__list">
+				<li class="footer__bottom__list__item">@Copyright Leandro Lopez 2022</li>
+				<li class="footer__bottom__list__item">
+					<a class="footer__bottom__list__link" href="#">Aviso Legal</a>
+				</li>
+				<li class="footer__bottom__list__item">
+					<a class="footer__bottom__list__link" href="#">Política de privacidad</a>
+				</li>
+			</ul>
+		</div>
+	</footer>
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+</body>
+</html>
