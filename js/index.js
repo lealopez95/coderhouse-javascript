@@ -27,18 +27,14 @@ class Cart {
         }
     }
 
-    getProducts = () => {
-        let products = [];
-        this.products.forEach( product => {
-            products.push({
-                name: product.name,
-                price: product.price,
-                qty: this.quantities[product.name],
-                total: this.quantities[product.name] * product.price,
-            })
-        });
-        return products;
-    }
+    getProducts = () => this.products.map( product => {
+        return {
+            name: product.name,
+            price: product.price,
+            qty: this.quantities[product.name],
+            total: this.quantities[product.name] * product.price,
+        }
+    });
 }
 
 validateYesNoPrompt = (message) => {
