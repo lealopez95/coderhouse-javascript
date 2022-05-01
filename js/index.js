@@ -49,7 +49,7 @@ validateYesNoPrompt = (message) => {
             alert("Por favor ingrese una respuesta valida.");
         } else {
             switch(answer.trim().toLowerCase()) {
-                case 'y' || 'yes':
+                case 's' || 'si':
                    return true;
                 case 'n' || 'no':
                     return false;
@@ -89,7 +89,7 @@ shouldAddProducts = () => {
     const cart = new Cart();
     let answer;
     do{
-        answer = validateYesNoPrompt('Desea ingresar productos a su carrito? y / n');
+        answer = validateYesNoPrompt('Desea ingresar productos a su carrito? s / n');
         if(answer) {
             const productName = validateStringPrompt('Ingrese nombre del producto');
             const productPrice = validateNumberPrompt('Ingrese valor del producto');
