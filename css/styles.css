@@ -411,6 +411,7 @@ main {
           display: flex;
           flex-direction: column;
           align-items: center;
+          justify-content: space-evenly;
           gap: 10px;
           padding: 1rem; }
           .menu__box__category__plates__item__img {
@@ -423,6 +424,12 @@ main {
             text-align: center; }
           .menu__box__category__plates__item__price {
             font-weight: bold; }
+          .menu__box__category__plates__item__button {
+            border: none;
+            color: #ffffff;
+            background-color: #931621;
+            padding: 5px 10px;
+            border-radius: 10px; }
           .menu__box__category__plates__item--inline {
             flex-direction: row;
             width: 560px;
