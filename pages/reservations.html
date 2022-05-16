@@ -55,49 +55,11 @@
 			<div class="offcanvas-body">
 				<div class="header__basket__section">
 					<h3>Pedido</h3>
-					<ul class="header__basket__section__list">
-						<li class="header__basket__section__list__item">
-							<p class="header__basket__section__list__item__text">Plato 1</p>
-							<input class="header__basket__section__list__item__qty" type="number" name="quantity" id="quantity_plato_1" value="2">
-							<p class="header__basket__section__list__item__text">$500</p>
-							<a href="#">
-								<img class="header__basket__section__list__item__icon" src="../media/images/icons/trash_icon.svg" alt="tacho de basura">
-							</a>
-						</li>
-						<li class="header__basket__section__list__item">
-							<p class="header__basket__section__list__item__text">Plato 4</p>
-							<input class="header__basket__section__list__item__qty" type="number" name="quantity" id="quantity_plato_2" value="1">
-							<p class="header__basket__section__list__item__text">$100</p>
-							<a href="#">
-								<img class="header__basket__section__list__item__icon" src="../media/images/icons/trash_icon.svg" alt="tacho de basura">
-							</a>
-						</li>
-					</ul>
+					<ul class="header__basket__section__list" id="cart-Items"></ul>
 				</div>
 				<div class="header__basket__section">
 					<h3>Resumen</h3>
-					<ul class="header__basket__section__list">
-						<li class="header__basket__section__list__item">
-							<label for="discount_code">C&oacute;digo de descuento</label>
-							<input class="header__basket__section__list__item__discount_code" type="text" name="discount_code" id="discount_code" placehulder="C&oacute;digo">
-							<p class="header__basket__section__list__item__text">-20%</p>
-						</li>
-						<li class="header__basket__section__list__item">
-							<p class="header__basket__section__list__item__text">Env&iacute;o</p>
-							<p class="header__basket__section__list__item__text">$45</p>
-						</li>
-						<li class="header__basket__section__list__item">
-							<p class="header__basket__section__list__item__text">Subtotal</p>
-							<p class="header__basket__section__list__item__text">$645</p>
-						</li>
-						<li class="header__basket__section__list__item">
-							<p class="header__basket__section__list__item__text">Total</p>
-							<p class="header__basket__section__list__item__text">$516</p>
-						</li>
-						<li class="header__basket__section__list__item header__basket__section__list__item--align_center">
-							<button class="header__basket__section__list__item__button">Ir a pagar</button>
-						</li>
-					</ul>
+					<ul class="header__basket__section__list" id="order-Items"></ul>
 				</div>
 			</div>
 		</div>
@@ -180,6 +142,19 @@
 			</ul>
 		</div>
 	</footer>
+	<!-- import clasess -->
+	<script>
+		//add this to have a global for thas can of the cart section
+		const prefixUrl = "../";
+	</script>
+	<script src="../js/Storage.js"></script>
+	<script src="../js/Product.js"></script>
+	<script src="../js/Category.js"></script>
+	<script src="../js/User.js"></script>
+	<script src="../js/Cart.js"></script>
+	<script src="../js/Order.js"></script>
+	<!-- import principal -->
+	<script src="../js/index.js"></script>
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
 </body>
 </html>

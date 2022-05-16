@@ -1,18 +1,22 @@
 class Cart {
+    userId; // reference to a User id
     products;
     quantities;
-    userId; // reference to a User id
 
-    constructor (products = [], quantities = {}, userId = null) {
+    constructor (userId = 0, products = [], quantities = {}) {
+        this.userId = userId;
         this.products = products;
         this.quantities = quantities;
-        this.user = userId;
     }
 
-    static loadFromStorage = (unparsedCart) => {
+    static parseDataFromObject = (unparsedCart, userId) => {
         const products = unparsedCart.products;
-        const parsedProducts = products.map(product => Product.loadFromStorage(product));
-        return new Cart(parsedProducts, unparsedCart.quantities);
+        const parsedProducts = products.map(product => Product.parseDataFromObject(product));
+        return new Cart(userId, parsedProducts, unparsedCart.quantities);
+    }
+
+    static getCartByUserId = (userId) => {
+        return LocalStorage.getUserCart(userId);
     }
 
     addProduct(product, qty = 1) {

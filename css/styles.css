@@ -66,6 +66,18 @@ p {
 main {
   grid-area: main; }
 
+/* Fix to delete arrows in input type=number */
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0; }
+
+/* Firefox */
+input[type=number] {
+  -moz-appearance: textfield; }
+
+/* Fix to delete arrows in input type=number */
 .header {
   grid-area: header;
   display: grid;
@@ -116,6 +128,11 @@ main {
             width: 2.3rem;
             text-align: center; }
           .header__basket__section__list__item__text {
+            flex: 1;
+            margin: 1rem 0; }
+          .header__basket__section__list__item__price {
+            text-align: end;
+            flex: 0 0 15%;
             margin: 1rem 0; }
           .header__basket__section__list__item__icon {
             width: 15px; }

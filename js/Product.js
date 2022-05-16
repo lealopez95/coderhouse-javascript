@@ -43,7 +43,11 @@ class Product {
         ];
     }
 
-    static loadFromStorage = (product) => {
+    static parseDataFromObject = (product) => {
         return new Product(product.id, product.name, product.price, product.description, product.image, product.caregoryId);
+    }
+
+    static getProductsInStock = () => {
+       return SessionStorage.getProductsInStock();
     }
 }

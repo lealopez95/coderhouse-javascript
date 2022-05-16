@@ -62,6 +62,13 @@
 					}
 
 					&__text {
+						flex: 1;
+						margin: 1rem 0
+					}
+
+					&__price {
+						text-align: end;
+						flex: 0 0 15%;
 						margin: 1rem 0
 					}
 

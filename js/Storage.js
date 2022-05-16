@@ -4,18 +4,18 @@ class LocalStorage {
 
     static setUserCart = (cart) => {
         console.log("SETTING NEW CART DATA ON LOCAL STORAGE", cart);
-        localStorage.setItem(LocalStorage.USER_CART, JSON.stringify(cart));
+        localStorage.setItem(LocalStorage.USER_CART + '_' + cart.userId, JSON.stringify(cart));
     }
 
-    static getUserCart = () => {
-        let userCart = JSON.parse(localStorage.getItem(LocalStorage.USER_CART));
+    static getUserCart = (userId) => {
+        let userCart = JSON.parse(localStorage.getItem(LocalStorage.USER_CART + '_' + userId));
         console.log("local storage cart", userCart)
         if (!userCart) {
             userCart = new Cart();
             LocalStorage.setUserCart(userCart);
             console.log("new emptu cart", userCart)
         } else {
-            userCart = Cart.loadFromStorage(userCart);
+            userCart = Cart.parseDataFromObject(userCart, userId);
         }
         return userCart;
     }
