@@ -1,60 +1,57 @@
 // CART FUNCTIONS
-const addToCartEventHandler = (event) => {
+const addToCartEventHandler = ({ srcElement }) => {
     const productsInStock = Product.getProductsInStock();
-    const productId = parseInt(event.srcElement.getAttribute("data-id"));
+    const productId = parseInt(srcElement.getAttribute("data-id"));
     const product = productsInStock.find(product => product.id === productId);
+    // @TODO: add logic so it can load a User logged
     const user = new User();
     const userCart = user.getCart();
     userCart.addProduct(product);
-    console.log("product añadido", product);
-    console.log("actual status del carrito:");
-    const productsInCart = userCart.getProducts();
-    if(productsInCart.length === 0) {
-        console.log('No hay productos en el carrito');
-    } else {
-        let message = 'Sus productos en el carrito son: \n';
-        let total = 0;
-        productsInCart.forEach(product => {
-            message += `${product.name}: ${product.price} * ${product.qty} = ${product.total} \n`;
-            total += product.total;
-        });
-        message +=  `TOTAL: $${total}`;
-        console.log(message);
-    }
+    // @TODO: add library to make prettier messages
+    alert(`Añadiste ${product.name} a tu carrito.`);
+    // @TODO: optimize to just add this new item and not re-draw everything
+    drawCart();
+    addEventsForCart();
 }
 
-const addEventAddToCartByClass = (className) => {
+const deleteFromCartEventHandler = ({ srcElement }) => {
+    const productId = parseInt(srcElement.parentElement.getAttribute("data-id"));
+    // @TODO: add logic so it can load a User logged
+    const user = new User();
+    const userCart = user.getCart();
+    const productDeleted = userCart.deleteProduct(productId);
+    // @TODO: optimize to just delete this item and not re-draw everything
+    if(productDeleted) {
+        alert(`Eliminaste ${productDeleted.name} de tu carrito.`)
+    }
+    drawCart();
+    addEventsForCart();
+    // @TODO: add library to make prettier messages
+    
+}
+
+const addEventByClass = (className, eventHandler) => {
     const productBoxes = document.getElementsByClassName(className);
     for (productBox of productBoxes) {
-        productBox.addEventListener("click", addToCartEventHandler);
+        productBox.addEventListener("click", eventHandler);
     }
 }
-
-
-/* return {
-    id: product.id,
-    name: product.name,
-    price: product.price,
-    qty: this.quantities[product.id],
-    total: this.quantities[product.id] * product.price,
-} */
 
 const drawCartItem = (product) => {
     return `
     <li class="header__basket__section__list__item">
         <p class="header__basket__section__list__item__text">${product.name}</p>
-        <input class="header__basket__section__list__item__qty" type="number" min="0" name="quantity" id="quantity_${product.id}" value="${product.qty}" data-id="${product.id}">
+        <input class="header__basket__section__list__item__qty" type="number" min="0" name="quantity" id="quantity_${product.id}" value="${product.qty}">
         <p class="header__basket__section__list__item__price" id="price_${product.id}">$${product.price}</p>
-        <a id="trash_${product.id}" href="#">
+        <button id="trash_${product.id}" href="#" class="delete-item header__basket__section__list__item__trash" data-id="${product.id}">
             <img class="header__basket__section__list__item__icon" src="${prefixUrl}media/images/icons/trash_icon.svg" alt="tacho de basura">
-        </a>
+        </button>
     </li>
     `;
 }
 
 const drawCartResume = (order) => {
-
-    return `
+    return ( order.products?.length > 0 && `
     <li class="header__basket__section__list__item">
         <label for="discount_code">C&oacute;digo de descuento</label>
         <input class="header__basket__section__list__item__discount_code" type="text" name="discount_code" id="discount_code" placehulder="C&oacute;digo">
@@ -75,16 +72,19 @@ const drawCartResume = (order) => {
     <li class="header__basket__section__list__item header__basket__section__list__item--align_center">
         <button class="header__basket__section__list__item__button">Ir a pagar</button>
     </li>
-    `;
+    `) || ``;
 }
 
-const drawCart = (preOrder) => {
+const drawCart = (preOrder = null) => {
+    if (!preOrder) {
+        preOrder = new Order(0, new User(), 45);
+    }
     const cartItemsWrapper = document.getElementById("cart-Items");
     let innerHTML = "";
     for (const product of preOrder.getProducts()) {
         innerHTML += drawCartItem(product);
     }
-    cartItemsWrapper.innerHTML = innerHTML;
+    cartItemsWrapper.innerHTML = innerHTML || `No hay productos en su carrito`;
 
     const cartResumeWrapper = document.getElementById("order-Items");
     innerHTML = drawCartResume(preOrder);
@@ -92,13 +92,13 @@ const drawCart = (preOrder) => {
 }
 
 const addEventsForCart = () => {
-    // @TODO: add events for delete cart items
+    addEventByClass("add-item", addToCartEventHandler);
+    addEventByClass("delete-item", deleteFromCartEventHandler);
 }
 
 // this is the code executed when the page loads
 const load = () => {
-    addEventAddToCartByClass("add-cart");
-    drawCart(new Order(0, new User(), 45));
+    drawCart();
     addEventsForCart();
 }
 

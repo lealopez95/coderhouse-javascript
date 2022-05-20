@@ -8,7 +8,7 @@ const drawItems = (products) => {
                 <h3 class="menu__box__category__plates__item__title">${product.name}</h3>
                 <p class="menu__box__category__plates__item__description">${product.description}</p>
                 <p class="menu__box__category__plates__item__price">$${product.price}</p>
-                <button class="add-cart menu__box__category__plates__item__button" data-id="${product.id}">Agregar al carro</button>
+                <button class="add-item menu__box__category__plates__item__button" data-id="${product.id}">Agregar al carro</button>
             </div>`
     }
     return content;

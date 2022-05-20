@@ -134,6 +134,8 @@ input[type=number] {
             text-align: end;
             flex: 0 0 15%;
             margin: 1rem 0; }
+          .header__basket__section__list__item__trash {
+            border: unset; }
           .header__basket__section__list__item__icon {
             width: 15px; }
           .header__basket__section__list__item__button {

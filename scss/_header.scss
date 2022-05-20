@@ -72,6 +72,10 @@
 						margin: 1rem 0
 					}
 
+					&__trash {
+						border: unset;
+					}
+
 					&__icon {
 						@include setSizes(15px);
 					}
