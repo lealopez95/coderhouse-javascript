@@ -7,8 +7,11 @@ const addToCartEventHandler = ({ srcElement }) => {
     const user = new User();
     const userCart = user.getCart();
     userCart.addProduct(product);
-    // @TODO: add library to make prettier messages
-    alert(`Añadiste ${product.name} a tu carrito.`);
+    swal({
+       text: `Añadiste ${product.name} a tu carrito.`,
+        icon: "success",
+        button: "Ok",
+    });
     // @TODO: optimize to just add this new item and not re-draw everything
     drawCart();
     addEventsForCart();
@@ -22,12 +25,14 @@ const deleteFromCartEventHandler = ({ srcElement }) => {
     const productDeleted = userCart.deleteProduct(productId);
     // @TODO: optimize to just delete this item and not re-draw everything
     if(productDeleted) {
-        alert(`Eliminaste ${productDeleted.name} de tu carrito.`)
+        swal({
+           text: `Eliminaste ${productDeleted.name} de tu carrito.`,
+            icon: "success",
+            button: "Ok",
+        });
     }
     drawCart();
-    addEventsForCart();
-    // @TODO: add library to make prettier messages
-    
+    addEventsForCart();    
 }
 
 const addEventByClass = (className, eventHandler) => {

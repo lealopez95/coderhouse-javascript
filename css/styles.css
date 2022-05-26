@@ -566,6 +566,23 @@ input[type=number] {
   .footer ul {
     padding: 0; }
 
+.swal-text {
+  font-size: 1.6rem;
+  text-align: center; }
+
+.swal-footer {
+  text-align: center; }
+
+.swal-button {
+  border: none;
+  color: #ffffff;
+  background-color: #931621;
+  padding: 5px 20px;
+  border-radius: 10px;
+  font-size: 1.2rem; }
+  .swal-button:not([disabled]):hover {
+    background-color: #931621; }
+
 @media screen and (max-width: 1024px) {
   .banner__images__img--front {
     width: 80%; }
