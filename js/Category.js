@@ -13,14 +13,21 @@ class Category {
         this.products = products.filter(product => product.categoryId === this.id);
     }
 
-    static getAll = () => {
-        return [
-            new Category(1,"Entradas"),
-            new Category(2,"Platos principales"),
-            new Category(3,"Sushi"),
-            new Category(4,"Postres"),
-            new Category(5,"Bebidas"),
-        ];
+    static getAll = async () => {
+        const response = await fetch('../data/categories.json');
+        let unformattedCategories = [];
+        if(response.status === 200) {
+            unformattedCategories = await response.json();
+        }
+        const categories = [];
+        for (const category of unformattedCategories) {
+            categories.push(Category.parseDataFromObject(category));
+        }
+        return categories;
+    }
+
+    static parseDataFromObject = (category) => {
+        return new Category(category.id, category.name);
     }
 
     getProductsWithCategoryName = () => {
@@ -30,7 +37,7 @@ class Category {
     }
 
     static getProductsOrderedByCategories = async () => {
-        const categories = Category.getAll();
+        const categories = await Category.getAll();
         let productsByCategory = {};
         for (const category of categories) {
             category.setProductsByCategory(await SessionStorage.getProductsInStock());
