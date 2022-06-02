@@ -3,17 +3,14 @@ class LocalStorage {
     static USER_CART = "userCart";
 
     static setUserCart = (cart) => {
-        console.log("SETTING NEW CART DATA ON LOCAL STORAGE", cart);
         localStorage.setItem(LocalStorage.USER_CART + '_' + cart.userId, JSON.stringify(cart));
     }
 
     static getUserCart = (userId) => {
         let userCart = JSON.parse(localStorage.getItem(LocalStorage.USER_CART + '_' + userId));
-        console.log("local storage cart", userCart)
         if (!userCart) {
             userCart = new Cart();
             LocalStorage.setUserCart(userCart);
-            console.log("new emptu cart", userCart)
         } else {
             userCart = Cart.parseDataFromObject(userCart, userId);
         }
@@ -29,10 +26,10 @@ class SessionStorage {
         sessionStorage.setItem(SessionStorage.PRODUCTS_IN_STOCK, JSON.stringify(products));
     }
 
-    static getProductsInStock = () => {
+    static getProductsInStock = async () => {
         let productsInStock = JSON.parse(sessionStorage.getItem(SessionStorage.PRODUCTS_IN_STOCK));
         if (!productsInStock) {
-            productsInStock = Product.getAll();
+            productsInStock = await Product.getAll();
             SessionStorage.setProductsInStock(productsInStock);
         }
         return productsInStock;

@@ -42,8 +42,8 @@ const drawMenu = (productsByCategory = []) => {
 }
 
 // this is the code executed when the online-order page loads
-const loadMenu = () => {
-    drawMenu(Category.getProductsOrderedByCategories());
+const loadMenu = async () => {
+    drawMenu(await Category.getProductsOrderedByCategories());
 }
 
 // this will wait until page loads

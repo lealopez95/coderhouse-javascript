@@ -29,12 +29,11 @@ class Category {
         }
     }
 
-    static getProductsOrderedByCategories = () => {
+    static getProductsOrderedByCategories = async () => {
         const categories = Category.getAll();
-        console.log("categorias", categories)
         let productsByCategory = {};
         for (const category of categories) {
-            category.setProductsByCategory(SessionStorage.getProductsInStock());
+            category.setProductsByCategory(await SessionStorage.getProductsInStock());
             let productsByCategoryPartial = category.getProductsWithCategoryName();
             productsByCategory = {...productsByCategory, ...productsByCategoryPartial }
         }

@@ -1,6 +1,6 @@
 // CART FUNCTIONS
-const addToCartEventHandler = ({ srcElement }) => {
-    const productsInStock = Product.getProductsInStock();
+const addToCartEventHandler = async ({ srcElement }) => {
+    const productsInStock = await Product.getProductsInStock();
     const productId = parseInt(srcElement.getAttribute("data-id"));
     const product = productsInStock.find(product => product.id === productId);
     // @TODO: add logic so it can load a User logged
