@@ -4,17 +4,15 @@ class Order {
     products;
     subtotal;
     shipmentCost;
-    disscounts; // @TODO add Discount class
     total;
 
-    constructor(id, user = new User(), shipmentCost = 0, disscounts = []) {
+    constructor(id, user = new User(), shipmentCost = 0) {
         this.id = id;
         this.userId = user.id;
         this.products = user.getCart().getProducts();
         this.shipmentCost = shipmentCost;
         this.subtotal = this.summarizeProducts();
         this.total = this.summarizeTotal();
-        this.disscounts = disscounts;
     }
 
     setSubtotal = (subtotal) => {
@@ -40,7 +38,7 @@ class Order {
     summarizeProducts = () => {
         let subtotal = 0;
         for (const product of this.products) {
-            subtotal += product.price;
+            subtotal += (product.price * product.qty);
         }
         return subtotal;
     }
@@ -49,8 +47,6 @@ class Order {
         if(!this.subtotal) {
             this.setSubtotal(this.summarizeProducts());
         }
-
-        // TODO: add a logic to apply discounts
         return this.subtotal + this.shipmentCost;
     }
 }

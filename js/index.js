@@ -5,28 +5,39 @@ let prefixUrl = '';
 const addToCartEventHandler = async ({ srcElement }) => {
     const productsInStock = await Product.getProductsInStock();
     const productId = parseInt(srcElement.getAttribute("data-id"));
+    const showMessageAttr = srcElement.getAttribute("show-message");
+    const shouldShowMessage = (showMessageAttr && showMessageAttr==='true') || false;
     const product = productsInStock.find(product => product.id === productId);
-    // @TODO: add logic so it can load a User logged
     const user = new User();
     const userCart = user.getCart();
     userCart.addProduct(product);
-    swal({
-       text: `Añadiste ${product.name} a tu carrito.`,
-        icon: "success",
-        button: "Ok",
-    });
-    // @TODO: optimize to just add this new item and not re-draw everything
+    if (shouldShowMessage) {
+        swal({
+           text: `Añadiste ${product.name} a tu carrito.`,
+            icon: "success",
+            button: "Ok",
+        });
+    }
+    drawCart();
+    addEventsForCart();
+}
+
+const substractFromCartEventHandler = async ({ srcElement }) => {
+    const productsInStock = await Product.getProductsInStock();
+    const productId = parseInt(srcElement.getAttribute("data-id"));
+    const product = productsInStock.find(product => product.id === productId);
+    const user = new User();
+    const userCart = user.getCart();
+    userCart.substractProduct(product);
     drawCart();
     addEventsForCart();
 }
 
 const deleteFromCartEventHandler = ({ srcElement }) => {
     const productId = parseInt(srcElement.parentElement.getAttribute("data-id"));
-    // @TODO: add logic so it can load a User logged
     const user = new User();
     const userCart = user.getCart();
     const productDeleted = userCart.deleteProduct(productId);
-    // @TODO: optimize to just delete this item and not re-draw everything
     if(productDeleted) {
         swal({
            text: `Eliminaste ${productDeleted.name} de tu carrito.`,
@@ -45,11 +56,13 @@ const addEventByClass = (className, eventHandler) => {
     }
 }
 
-const drawCartItem = (product) => {
+const generateCartItemElement = (product) => {
     return `
-    <li class="header__basket__section__list__item">
+    <li class="header__basket__section__list__item" >
         <p class="header__basket__section__list__item__text">${product.name}</p>
+        <button class="header__basket__section__list__item__button header__basket__section__list__item__button--small substract-item" data-id="${product.id}">-</button>
         <input class="header__basket__section__list__item__qty" type="number" min="0" name="quantity" id="quantity_${product.id}" value="${product.qty}">
+        <button class="header__basket__section__list__item__button header__basket__section__list__item__button--small add-item" data-id="${product.id}">+</button>
         <p class="header__basket__section__list__item__price" id="price_${product.id}">$${product.price}</p>
         <button id="trash_${product.id}" href="#" class="delete-item header__basket__section__list__item__trash" data-id="${product.id}">
             <img class="header__basket__section__list__item__icon" src="${prefixUrl}media/images/icons/trash_icon.svg" alt="tacho de basura">
@@ -59,12 +72,8 @@ const drawCartItem = (product) => {
 }
 
 const drawCartResume = (order) => {
-    return ( order.products?.length > 0 && `
-    <li class="header__basket__section__list__item">
-        <label for="discount_code">C&oacute;digo de descuento</label>
-        <input class="header__basket__section__list__item__discount_code" type="text" name="discount_code" id="discount_code" placehulder="C&oacute;digo">
-        <p class="header__basket__section__list__item__text">-20%</p>
-    </li>
+    const cartResumeWrapper = document.getElementById("order-Items");
+    const innerHTML = ( order.products?.length > 0 && `
     <li class="header__basket__section__list__item">
         <p class="header__basket__section__list__item__text">Env&iacute;o</p>
         <p class="header__basket__section__list__item__price">$${order.getShipmentCost()}</p>
@@ -81,6 +90,8 @@ const drawCartResume = (order) => {
         <button class="header__basket__section__list__item__button">Ir a pagar</button>
     </li>
     `) || ``;
+    cartResumeWrapper.innerHTML = innerHTML;
+
 }
 
 const drawCart = (preOrder = null) => {
@@ -90,17 +101,15 @@ const drawCart = (preOrder = null) => {
     const cartItemsWrapper = document.getElementById("cart-Items");
     let innerHTML = "";
     for (const product of preOrder.getProducts()) {
-        innerHTML += drawCartItem(product);
+        innerHTML += generateCartItemElement(product);
     }
     cartItemsWrapper.innerHTML = innerHTML || `No hay productos en su carrito`;
-
-    const cartResumeWrapper = document.getElementById("order-Items");
-    innerHTML = drawCartResume(preOrder);
-    cartResumeWrapper.innerHTML = innerHTML;
+    drawCartResume(preOrder);
 }
 
 const addEventsForCart = () => {
     addEventByClass("add-item", addToCartEventHandler);
+    addEventByClass("substract-item", substractFromCartEventHandler);
     addEventByClass("delete-item", deleteFromCartEventHandler);
 }
  // ====== CART FUNCTIONS END ======
@@ -115,7 +124,7 @@ const addEventsForCart = () => {
                 <h3 class="menu__box__category__plates__item__title">${product.name}</h3>
                 <p class="menu__box__category__plates__item__description">${product.description}</p>
                 <p class="menu__box__category__plates__item__price">$${product.price}</p>
-                <button class="add-item menu__box__category__plates__item__button" data-id="${product.id}">Agregar al carro</button>
+                <button class="add-item menu__box__category__plates__item__button" data-id="${product.id}" show-message="true">Agregar al carro</button>
             </div>`
     }
     return content;

@@ -147,6 +147,9 @@ input[type=number] {
             color: #ffffff;
             cursor: pointer;
             margin-top: 24px; }
+            .header__basket__section__list__item__button--small {
+              margin: 0;
+              padding: 8px; }
           .header__basket__section__list__item--align_center {
             justify-content: center; }
 

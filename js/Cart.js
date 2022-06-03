@@ -30,6 +30,20 @@ class Cart {
         LocalStorage.setUserCart(this);
     }
 
+    substractProduct = (product, qty = 1) => {
+        const result = this.products.findIndex( currProduct => currProduct.id === product.id );
+        if(result != -1) {
+            this.quantities[product.id] -= qty;
+            if(this.quantities[product.id] <= 0) {
+                return this.deleteProduct(product.id)
+            }
+        } else {
+            this.products.push(product);
+            this.quantities[product.id] = qty;
+        }
+        LocalStorage.setUserCart(this);
+    }
+
     deleteProduct = (productId) => {
         const result = this.products.findIndex( currProduct => currProduct.id === productId );
         if(result != -1) {

@@ -89,6 +89,11 @@
 						color: $white;
 						cursor: pointer;
 						margin-top: 24px;
+
+						&--small {
+							margin: 0;
+							padding: 8px;
+						}
 					}
 
 					&--align_center {
