@@ -1,4 +1,7 @@
- // ====== CART FUNCTIONS ======
+// GLOBAL FOR ROUTES
+let prefixUrl = '';
+
+// ====== CART FUNCTIONS ======
 const addToCartEventHandler = async ({ srcElement }) => {
     const productsInStock = await Product.getProductsInStock();
     const productId = parseInt(srcElement.getAttribute("data-id"));
@@ -145,7 +148,7 @@ const drawMenu = (productsByCategory = []) => {
     menuBox.innerHTML += content;
 }
 
-const isPage = (page) => {
+const urlContains = (page) => {
     const path = window.location.pathname;
     const currPage = path.split('/');
     return currPage.findIndex( str => str === page) !== -1
@@ -153,8 +156,9 @@ const isPage = (page) => {
 
 // this is the code executed when the page loads
 const load = async () => {
+    prefixUrl = urlContains('pages') ? "../" : "";
     drawCart();
-    if(isPage('online-order.html')) {
+    if(urlContains('online-order.html')) {
         drawMenu(await Category.getProductsOrderedByCategories());
     }
     addEventsForCart();
