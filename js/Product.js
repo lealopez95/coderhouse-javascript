@@ -28,9 +28,10 @@ class Product {
         return products;
     }
 
-    static searchByNameAndDescription = async name => {
+    static searchByNameAndDescription = async search => {
+        const words = search.split(" ");
         const productsInStock = await Product.getProductsInStock();
-        const regExp = new RegExp(name, 'i');
+        const regExp = new RegExp(words.join("|"), 'i');
         return productsInStock.filter(product => {
             return (product.name.search(regExp) != -1 || product.description.search(regExp) != -1);
         });
