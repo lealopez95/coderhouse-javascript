@@ -28,7 +28,15 @@ class Product {
         return products;
     }
 
-    static parseDataFromObject = (product) => {
+    static searchByNameAndDescription = async name => {
+        const productsInStock = await Product.getProductsInStock();
+        const regExp = new RegExp(name, 'i');
+        return productsInStock.filter(product => {
+            return (product.name.search(regExp) != -1 || product.description.search(regExp) != -1);
+        });
+    }
+
+    static parseDataFromObject = product => {
         return new Product(product.id, product.name, product.price, product.description, product.image, product.categoryId);
     }
 

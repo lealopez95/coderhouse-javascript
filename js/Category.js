@@ -30,20 +30,13 @@ class Category {
         return new Category(category.id, category.name);
     }
 
-    getProductsWithCategoryName = () => {
-        return {
-            [this.name]: this.products
-        }
-    }
-
-    static getProductsOrderedByCategories = async () => {
+    static getProductsCategories = async () => {
         const categories = await Category.getAll();
-        let productsByCategory = {};
+        let categoriesWithProducts = [];
         for (const category of categories) {
             category.setProductsByCategory(await SessionStorage.getProductsInStock());
-            let productsByCategoryPartial = category.getProductsWithCategoryName();
-            productsByCategory = {...productsByCategory, ...productsByCategoryPartial }
+            categoriesWithProducts.push(category);
         }
-        return productsByCategory;
+        return categoriesWithProducts;
     }
 }

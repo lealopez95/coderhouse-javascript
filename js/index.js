@@ -134,15 +134,16 @@ const addEventsForCart = () => {
 const drawMenu = (productsByCategory = []) => {
     const menuBox = document.getElementById("menu");
     let content = "";
-    for (const key in productsByCategory) {
+
+    for (category of productsByCategory) {
         content += `<section class="menu__box__category menu__box__category--background-lavander menu__box__category--red-border container">
         <div class="row mb-3">
             <div class="menu__box__category__title col-sm-12">
-                <h2>${key}</h2>
+                <h2>${category.name}</h2>
             </div>
         </div>
         <div class="row justify-content-center">`;
-        content += drawItems(productsByCategory[key]);
+        content += drawItems(category.products);
         content += `</div></section>`;
     }
     if (content === "") {
@@ -154,7 +155,7 @@ const drawMenu = (productsByCategory = []) => {
         </div>
         </section>`;
     }
-    menuBox.innerHTML += content;
+    menuBox.innerHTML = content;
 }
 
 const urlContains = (page) => {
@@ -163,12 +164,70 @@ const urlContains = (page) => {
     return currPage.findIndex( str => str === page) !== -1
 }
 
+// ======= FILTER METHODS =======
+const filter = async () => {
+    const filterSelectElem = document.getElementById('food_filter_type');
+    const categoryId = filterSelectElem.selectedIndex;
+    const productsByCategory = await Category.getProductsCategories();
+    if(categoryId > 0) {
+        const result = productsByCategory.find(category => category.id == categoryId);
+        drawMenu([result]);
+    } else {
+        drawMenu(productsByCategory);
+    }
+    addEventsForCart();
+}
+
+const addOptionsAndEventListenerToFilter = async () => {
+    const filterSelectElem = document.getElementById('food_filter_type');
+    const selectOption = document.createElement("option");
+    selectOption.value = "0";
+    selectOption.innerHTML = "Todos";
+    filterSelectElem.append(selectOption);
+    const categories = await Category.getAll();
+    for (const category of categories ) {
+        const option = document.createElement("option");
+        option.value = category.id;
+        option.innerHTML = category.name;
+        filterSelectElem.append(option);
+    }
+    filterSelectElem.addEventListener('change', filter);
+}
+// ======= FILTER METHODS END =======
+
+
+// ======= SEARCH METHODS =======
+const searchProducts = async () => {
+    const searchInputElem = document.getElementById('search');
+    if(searchInputElem.value.length >= 3) {
+        const products = await Product.searchByNameAndDescription(searchInputElem.value);
+        const searchResult = [{
+            name: "Búsqueda",
+            products: products,
+        }]
+        drawMenu(searchResult);
+        addEventsForCart();
+    }
+    if(searchInputElem.value.length == 0) {
+        filter();
+    }
+}
+
+const addEventListenerToSearch = () => {
+    const searchInputElem = document.getElementById('search');
+    searchInputElem.addEventListener('input', searchProducts);
+}
+// ======= SEARCH METHODS END =======
+
+
 // this is the code executed when the page loads
 const load = async () => {
     prefixUrl = urlContains('pages') ? "../" : "";
     drawCart();
     if(urlContains('online-order.html')) {
-        drawMenu(await Category.getProductsOrderedByCategories());
+        drawMenu(await Category.getProductsCategories());
+        await addOptionsAndEventListenerToFilter();
+        addEventListenerToSearch();
     }
     addEventsForCart();
 }
