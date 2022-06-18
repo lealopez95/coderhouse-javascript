@@ -133,29 +133,45 @@ const addEventsForCart = () => {
 // ====== FUNCTION TO DRAW PRODUCTS MENU ======
 const drawMenu = (productsByCategory = []) => {
     const menuBox = document.getElementById("menu");
-    let content = "";
-
+    menuBox.innerHTML = '';
+    let categorySection = null;
     for (category of productsByCategory) {
-        content += `<section class="menu__box__category menu__box__category--background-lavander menu__box__category--red-border container">
-        <div class="row mb-3">
+        categorySection = createCategorySectionElem();
+
+        const categoryTitle = document.createElement('div');
+        categoryTitle.classList.add('row', 'mb-3');
+        categoryTitle.innerHTML =  `
             <div class="menu__box__category__title col-sm-12">
                 <h2>${category.name}</h2>
-            </div>
-        </div>
-        <div class="row justify-content-center">`;
-        content += drawItems(category.products);
-        content += `</div></section>`;
+            </div>`;
+        categorySection.append(categoryTitle);
+
+        const listElements = document.createElement('div');
+        listElements.classList.add('row', 'justify-content-center');
+        listElements.innerHTML = drawItems(category.products);
+        categorySection.append(listElements);
+
+        menuBox.append(categorySection);
     }
-    if (content === "") {
-        content = `<section class="menu__box__category menu__box__category--background-lavander menu__box__category--red-border container">
-        <div class="row mb-3">
+
+    if(!categorySection) {
+        categorySection = createCategorySectionElem();
+
+        const emptyMenu = document.createElement('div');
+        emptyMenu.classList.add('row', 'mb-3');
+        emptyMenu.innerHTML =  `
             <div class="menu__box__category__title col-sm-12">
                 <h2>La carta está vacía</h2>
-            </div>
-        </div>
-        </section>`;
+            </div>`;
+        categorySection.append(emptyMenu);
+        menuBox.append(categorySection);
     }
-    menuBox.innerHTML = content;
+}
+
+const createCategorySectionElem = () => {
+    const categorySection = document.createElement('section');
+    categorySection.classList.add('menu__box__category', 'menu__box__category--background-lavander', 'menu__box__category--red-border', 'container');
+    return categorySection;
 }
 
 const urlContains = (page) => {
