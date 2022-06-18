@@ -1,6 +1,18 @@
 // GLOBAL FOR ROUTES
 let prefixUrl = '';
 
+// ====== GLOBAL FUNCTIONS ======
+const createElementWithClass = (tag = 'div', content = '', className = '') => {
+    const elem = document.createElement(tag);
+    elem.className = className;
+    if (content !== '') {
+        elem.append(content);
+    }
+    return elem;
+}
+// ====== GLOBAL FUNCTIONS ENDS ======
+
+
 // ====== CART FUNCTIONS ======
 const addCartItem = (product) => {
     const productElem = document.getElementById(`quantity_${product.id}`);
@@ -120,15 +132,6 @@ const generateCartItemElement = (product) => {
     );
 
     return listItem;
-}
-
-const createElementWithClass = (tag = 'div', content = '', className = '') => {
-    const elem = document.createElement(tag);
-    elem.className = className;
-    if (content !== '') {
-        elem.append(content);
-    }
-    return elem;
 }
 
 const drawCartResume = (order = null) => {
