@@ -49,7 +49,6 @@ const addToCartEventHandler = async ({ srcElement }) => {
 }
 
 const removeCartItem = (product) =>  {
-    console.log(product)
     if(product.qty > 0) {
         const productElemQty = document.getElementById(`quantity_${product.id}`);
         productElemQty.value = parseInt(productElemQty.value) - 1;
