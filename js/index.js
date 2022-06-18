@@ -115,19 +115,25 @@ const addEventsForCart = () => {
  // ====== CART FUNCTIONS END ======
  
  // ====== FUNCTION TO DRAW PRODUCT BOXES ======
- const drawItems = (products) => {
-    let content = "";
+ const createItemsElements = (products) => {
+    const productElements = [];
     for (const product of products) {
-        content += 
-            `<div class="menu__box__category__plates__item col-sm-12 col-md-6 col-lg-4">
-                <img class="menu__box__category__plates__item__img" src="../${product.image}" alt="${product.name}">
-                <h3 class="menu__box__category__plates__item__title">${product.name}</h3>
-                <p class="menu__box__category__plates__item__description">${product.description}</p>
-                <p class="menu__box__category__plates__item__price">$${product.price}</p>
-                <button class="add-item menu__box__category__plates__item__button" data-id="${product.id}" show-message="true">Agregar al carro</button>
-            </div>`
+        const prodElem = document.createElement('div');
+        prodElem.classList.add(
+            'menu__box__category__plates__item', 
+            'col-sm-12',
+            'col-md-6',
+            'col-lg-4'
+        );
+        prodElem.innerHTML = `
+            <img class="menu__box__category__plates__item__img" src="../${product.image}" alt="${product.name}">
+            <h3 class="menu__box__category__plates__item__title">${product.name}</h3>
+            <p class="menu__box__category__plates__item__description">${product.description}</p>
+            <p class="menu__box__category__plates__item__price">$${product.price}</p>
+            <button class="add-item menu__box__category__plates__item__button" data-id="${product.id}" show-message="true">Agregar al carro</button>`
+        productElements.push(prodElem);
     }
-    return content;
+    return productElements;
 };
 
 // ====== FUNCTION TO DRAW PRODUCTS MENU ======
@@ -148,7 +154,8 @@ const drawMenu = (productsByCategory = []) => {
 
         const listElements = document.createElement('div');
         listElements.classList.add('row', 'justify-content-center');
-        listElements.innerHTML = drawItems(category.products);
+        const products = createItemsElements(category.products);
+        products.forEach(elem => listElements.append(elem));
         categorySection.append(listElements);
 
         menuBox.append(categorySection);
