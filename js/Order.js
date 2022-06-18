@@ -49,4 +49,16 @@ class Order {
         }
         return this.subtotal + this.shipmentCost;
     }
+
+    getUser = () => {
+        return new User(this.userId);
+    }
+
+    pay = () => {
+        // did not made any payment view nor logic so this is it for now
+       const cart = this.getUser().getCart();
+       cart.deleteAll();
+       this.subtotal = 0;
+       this.total = 0;
+    }
 }

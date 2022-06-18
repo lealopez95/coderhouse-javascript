@@ -481,3 +481,10 @@
 		border-radius: 1rem;
 	}
 }
+
+.orderProductsPayment li {
+	display: flex;
+    justify-content: space-between;
+    padding: 0 10%;
+	font-family: Vegur-light, sans-serif;
+}

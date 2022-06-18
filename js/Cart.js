@@ -68,4 +68,10 @@ class Cart {
     }
 
     getProducts = () => this.products.map( product => this.formatProduct(product));
+
+    deleteAll = () => {
+        this.products = [];
+        this.quantities = [];
+        LocalStorage.setUserCart(this);
+    }
 }

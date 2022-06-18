@@ -134,6 +134,62 @@ const generateCartItemElement = (product) => {
     return listItem;
 }
 
+const handleGoToPayments = () => {
+    preOrder = new Order(0, new User(), 45);
+    const products = preOrder.getProducts();
+    const orderProducts = createElementWithClass('ul', '', 'orderProductsPayment');
+    for (const product of products) {
+        const orderProductsItem = createElementWithClass('li', '', 'orderProductsPayment__item');
+        orderProductsItem.append(
+            createElementWithClass('p', `${product.name} x ${product.qty}`),
+            createElementWithClass('p', `${product.price * product.qty}`),
+        );
+        orderProducts.append(orderProductsItem);
+    }
+    const shipmentElem = createElementWithClass('li', '', 'orderProductsPayment__amount');
+    shipmentElem.append(
+        createElementWithClass('p', 'Envío'),
+        createElementWithClass('p', `$${preOrder.getShipmentCost()}`)
+    );
+    const totalElem = createElementWithClass('li', '', 'orderProductsPayment__amount');
+    totalElem.append(
+        createElementWithClass('p', 'Total'),
+        createElementWithClass('p', `$${preOrder.getTotal()}`)
+    );
+    orderProducts.append(shipmentElem, totalElem);
+    swal({
+        title: `Confirmar orden de compra?`,
+        content: orderProducts,
+        buttons: {
+            cancel: {
+                text: "Seguir comprando",
+                value: null,
+                visible: true,
+                closeModal: true,
+            },
+            confirm: {
+                text: "Comprar!",
+                value: true,
+                visible: true,
+                closeModal: true
+            }
+        },
+        dangerMode: true,
+     }).then((ShouldPay) => {
+        if (ShouldPay) {
+            preOrder.pay();
+            setTimeout(() => location.reload(), 4000);
+            swal({
+                title: `Confirmar orden de compra?`,
+                text: 'En instantes será redirigido',
+                icon: "success",
+                closeOnClickOutside: false,
+                buttons: false,
+            });
+        }
+    });
+}
+
 const drawCartResume = (order = null) => {
     if(!order) {
         order = new Order(0, new User(), 45)
@@ -143,7 +199,7 @@ const drawCartResume = (order = null) => {
     if (order.products?.length > 0) {
         const shipmentElem = createElementWithClass('li', '','header__basket__section__list__item');
         shipmentElem.append(
-            createElementWithClass('p', 'Env&iacute;o', 'header__basket__section__list__item__text'),
+            createElementWithClass('p', 'Envío', 'header__basket__section__list__item__text'),
             createElementWithClass('p', `$${order.getShipmentCost()}`, 'header__basket__section__list__item__price')
         );
 
@@ -161,6 +217,7 @@ const drawCartResume = (order = null) => {
 
         const goToPaymentElem = createElementWithClass('li', '','header__basket__section__list__item header__basket__section__list__item--align_center');
         const goToPaymentButton = createElementWithClass('button', 'Ir a pagar','header__basket__section__list__item__button');
+        goToPaymentButton.addEventListener('click', handleGoToPayments);
         goToPaymentElem.append(goToPaymentButton);
 
         cartResumeWrapper.append(
