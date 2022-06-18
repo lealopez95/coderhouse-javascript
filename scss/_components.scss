@@ -408,6 +408,13 @@
 			}
 		}
 
+		&--transparent {
+			section {
+				background-color: transparent;
+				border: none;
+			}
+		}
+
 		&--order {
 			background-color: unset;
 			border: none;

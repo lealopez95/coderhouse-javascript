@@ -469,6 +469,9 @@ input[type=number] {
         background-color: #FFF5EB; }
       .menu__box__category--red-border {
         border: 4px double #931621; }
+    .menu__box--transparent section {
+      background-color: transparent;
+      border: none; }
     .menu__box--order {
       background-color: unset;
       border: none;

@@ -244,7 +244,7 @@ const drawCart = () => {
  // ====== CART FUNCTIONS END ======
  
  // ====== FUNCTION TO DRAW PRODUCT BOXES ======
- const createItemsElements = (products) => {
+ const createItemsElements = (products, canAddToCart) => {
     const productElements = [];
     for (const product of products) {
         const prodElem = createElementWithClass('div', '', 'menu__box__category__plates__item col-sm-12 col-md-6 col-lg-4');
@@ -252,21 +252,22 @@ const drawCart = () => {
             <img class='menu__box__category__plates__item__img' src='../${product.image}' alt='${product.name}'>
             <h3 class='menu__box__category__plates__item__title'>${product.name}</h3>
             <p class='menu__box__category__plates__item__description'>${product.description}</p>
-            <p class='menu__box__category__plates__item__price'>$${product.price}</p>`;
-
-        const addToCartButton = createElementWithClass('button', 'Agregar al carro', 'add-item menu__box__category__plates__item__button');
-        addToCartButton.setAttribute('data-id', product.id);
-        addToCartButton.setAttribute('show-message', 'true');
-        addToCartButton.addEventListener('click', addToCartEventHandler);
-
-        prodElem.append(addToCartButton);
+            ${ canAddToCart ? `<p class='menu__box__category__plates__item__price'>$${product.price}</p>`: ''}`;
+        if (canAddToCart) {
+            const addToCartButton = createElementWithClass('button', 'Agregar al carro', 'add-item menu__box__category__plates__item__button');
+            addToCartButton.setAttribute('data-id', product.id);
+            addToCartButton.setAttribute('show-message', 'true');
+            addToCartButton.addEventListener('click', addToCartEventHandler);
+    
+            prodElem.append(addToCartButton);
+        }
         productElements.push(prodElem);
     }
     return productElements;
 };
 
 // ====== FUNCTION TO DRAW PRODUCTS MENU ======
-const drawMenu = (productsByCategory = []) => {
+const drawMenu = (productsByCategory = [], canAddToCart = true) => {
     const menuBox = document.getElementById('menu');
     menuBox.innerHTML = '';
     let categorySection = null;
@@ -281,7 +282,7 @@ const drawMenu = (productsByCategory = []) => {
         categorySection.append(categoryTitle);
 
         const listElements = createElementWithClass('div', '', 'row justify-content-center');
-        const products = createItemsElements(category.products);
+        const products = createItemsElements(category.products, canAddToCart);
         products.forEach(elem => listElements.append(elem));
         categorySection.append(listElements);
 
@@ -372,6 +373,9 @@ const load = async () => {
         drawMenu(await Category.getProductsCategories());
         await addOptionsAndEventListenerToFilter();
         addEventListenerToSearch();
+    }
+    if(urlContains('menu.html')) {
+        drawMenu(await Category.getProductsCategories(), false);
     }
 }
 
