@@ -6,7 +6,7 @@ const addCartItem = (product) => {
     const productElem = document.getElementById(`quantity_${product.id}`);
     if(!productElem) {
         const listElement = generateCartItemElement(product);
-        const cartItemsWrapper = document.getElementById("cart-Items");
+        const cartItemsWrapper = document.getElementById('cart-Items');
         if(cartItemsWrapper.innerHTML === `No hay productos en su carrito`) {
             cartItemsWrapper.innerHTML = '';
         }
@@ -19,8 +19,8 @@ const addCartItem = (product) => {
 
 const addToCartEventHandler = async ({ srcElement }) => {
     const productsInStock = await Product.getProductsInStock();
-    const productId = parseInt(srcElement.getAttribute("data-id"));
-    const showMessageAttr = srcElement.getAttribute("show-message");
+    const productId = parseInt(srcElement.getAttribute('data-id'));
+    const showMessageAttr = srcElement.getAttribute('show-message');
     const shouldShowMessage = (showMessageAttr && showMessageAttr==='true') || false;
     const product = productsInStock.find(product => product.id === productId);
     const user = new User();
@@ -29,8 +29,8 @@ const addToCartEventHandler = async ({ srcElement }) => {
     if (shouldShowMessage) {
         swal({
            text: `Añadiste ${prodAdded.name} a tu carrito.`,
-            icon: "success",
-            button: "Ok",
+            icon: 'success',
+            button: 'Ok',
         });
     }
     addCartItem(prodAdded);
@@ -44,7 +44,7 @@ const removeCartItem = (product) =>  {
     } else{
         const productElem = document.getElementById(`cartItem_${product.id}`);
         productElem.remove();
-        const cartItemsWrapper = document.getElementById("cart-Items");
+        const cartItemsWrapper = document.getElementById('cart-Items');
         if(cartItemsWrapper.innerHTML === '') {
             cartItemsWrapper.innerHTML = 'No hay productos en su carrito';
         }
@@ -54,7 +54,7 @@ const removeCartItem = (product) =>  {
 
 const substractFromCartEventHandler = async ({ srcElement }) => {
     const productsInStock = await Product.getProductsInStock();
-    const productId = parseInt(srcElement.getAttribute("data-id"));
+    const productId = parseInt(srcElement.getAttribute('data-id'));
     const product = productsInStock.find(product => product.id === productId);
     const user = new User();
     const userCart = user.getCart();
@@ -63,59 +63,51 @@ const substractFromCartEventHandler = async ({ srcElement }) => {
 }
 
 const deleteFromCartEventHandler = ({ srcElement }) => {
-    const productId = parseInt(srcElement.parentElement.getAttribute("data-id"));
+    const productId = parseInt(srcElement.parentElement.getAttribute('data-id'));
     const user = new User();
     const userCart = user.getCart();
     const productDeleted = userCart.deleteProduct(productId);
     if(productDeleted) {
         swal({
            text: `Eliminaste ${productDeleted.name} de tu carrito.`,
-            icon: "success",
-            button: "Ok",
+            icon: 'success',
+            button: 'Ok',
         });
     }
     removeCartItem(productDeleted);
 }
 
 const generateCartItemElement = (product) => {
-    const listItem = document.createElement('li');
-    listItem.classList.add('header__basket__section__list__item');
+
+    const listItem = createElementWithClass('li', '' ,'header__basket__section__list__item');
     listItem.setAttribute('id', `cartItem_${product.id}`);
 
-    const nameElem = document.createElement('p');
-    nameElem.classList.add('header__basket__section__list__item__text');
-    nameElem.append(product.name);    
+    const nameElem = createElementWithClass('p', product.name ,'header__basket__section__list__item__text');
     
-    const minusButton = document.createElement('button');
-    minusButton.classList.add('header__basket__section__list__item__button', 'header__basket__section__list__item__button--small', 'substract-item');
-    minusButton.append('-');
+    const minusButton = createElementWithClass('button', '-' ,'header__basket__section__list__item__button header__basket__section__list__item__button--small substract-item');
     minusButton.setAttribute('data-id', product.id);
     minusButton.addEventListener('click', substractFromCartEventHandler);
 
-
-    const qtyInput = document.createElement('input');
-    qtyInput.classList.add('header__basket__section__list__item__qty');
-    qtyInput.type = "number";
-    qtyInput.min = "0";
-    qtyInput.name = "quantity";
+    const qtyInput = createElementWithClass('input', '' ,'header__basket__section__list__item__qty');
+    qtyInput.type = 'number';
+    qtyInput.min = '0';
+    qtyInput.name = 'quantity';
     qtyInput.id = `quantity_${product.id}`;
     qtyInput.value = product.qty;
 
-    const plusButton = document.createElement('button');
-    plusButton.classList.add('header__basket__section__list__item__button', 'header__basket__section__list__item__button--small', 'add-item');
-    plusButton.append('+');
+    const plusButton = createElementWithClass('button', '+' ,'header__basket__section__list__item__button header__basket__section__list__item__button--small add-item');
     plusButton.setAttribute('data-id', product.id);
     plusButton.addEventListener('click', addToCartEventHandler);
 
-    const priceElem = document.createElement('p');
-    priceElem.classList.add('header__basket__section__list__item__price');
+    const priceElem = createElementWithClass('p', `$${product.price}` ,'header__basket__section__list__item__price');
     priceElem.id = `price_${product.id}`;
-    priceElem.append(`$${product.price}`); 
 
-    const deleteButton = document.createElement('button');
-    deleteButton.classList.add('delete-item', 'header__basket__section__list__item__trash');
+    const trashIcon = createElementWithClass('img', '','header__basket__section__list__item__icon');
+    trashIcon.setAttribute('src', `${prefixUrl}media/images/icons/trash_icon.svg`);
+    trashIcon.setAttribute('alt', `tacho de basura`);
+
+    const deleteButton = createElementWithClass('button', trashIcon ,'delete-item header__basket__section__list__item__trash');
     deleteButton.setAttribute('data-id', product.id);
-    deleteButton.innerHTML = `<img class="header__basket__section__list__item__icon" src="${prefixUrl}media/images/icons/trash_icon.svg" alt="tacho de basura">`;
     deleteButton.addEventListener('click', deleteFromCartEventHandler);
 
     listItem.append(
@@ -130,35 +122,56 @@ const generateCartItemElement = (product) => {
     return listItem;
 }
 
+const createElementWithClass = (tag = 'div', content = '', className = '') => {
+    const elem = document.createElement(tag);
+    elem.className = className;
+    if (content !== '') {
+        elem.append(content);
+    }
+    return elem;
+}
+
 const drawCartResume = (order = null) => {
     if(!order) {
         order = new Order(0, new User(), 45)
     }
-    const cartResumeWrapper = document.getElementById("order-Items");
-    const innerHTML = ( order.products?.length > 0 && `
-    <li class="header__basket__section__list__item">
-        <p class="header__basket__section__list__item__text">Env&iacute;o</p>
-        <p class="header__basket__section__list__item__price">$${order.getShipmentCost()}</p>
-    </li>
-    <li class="header__basket__section__list__item">
-        <p class="header__basket__section__list__item__text">Subtotal</p>
-        <p class="header__basket__section__list__item__price">$${order.getSubtotal()}</p>
-    </li>
-    <li class="header__basket__section__list__item">
-        <p class="header__basket__section__list__item__text">Total</p>
-        <p class="header__basket__section__list__item__price">$${order.getTotal()}</p>
-    </li>
-    <li class="header__basket__section__list__item header__basket__section__list__item--align_center">
-        <button class="header__basket__section__list__item__button">Ir a pagar</button>
-    </li>
-    `) || ``;
-    cartResumeWrapper.innerHTML = innerHTML;
+    const cartResumeWrapper = document.getElementById('order-Items');
+    cartResumeWrapper.innerHTML = '';
+    if (order.products?.length > 0) {
+        const shipmentElem = createElementWithClass('li', '','header__basket__section__list__item');
+        shipmentElem.append(
+            createElementWithClass('p', 'Env&iacute;o', 'header__basket__section__list__item__text'),
+            createElementWithClass('p', `$${order.getShipmentCost()}`, 'header__basket__section__list__item__price')
+        );
 
+        const subtotalElem = createElementWithClass('li', '','header__basket__section__list__item');
+        subtotalElem.append(
+            createElementWithClass('p', 'Subtotal', 'header__basket__section__list__item__text'),
+            createElementWithClass('p', `$${order.getSubtotal()}`, 'header__basket__section__list__item__price')
+        );
+
+        const totalElem = createElementWithClass('li', '','header__basket__section__list__item');
+        totalElem.append(
+            createElementWithClass('p', 'Total', 'header__basket__section__list__item__text'),
+            createElementWithClass('p', `$${order.getTotal()}`, 'header__basket__section__list__item__price')
+        );
+
+        const goToPaymentElem = createElementWithClass('li', '','header__basket__section__list__item header__basket__section__list__item--align_center');
+        const goToPaymentButton = createElementWithClass('button', 'Ir a pagar','header__basket__section__list__item__button');
+        goToPaymentElem.append(goToPaymentButton);
+
+        cartResumeWrapper.append(
+            shipmentElem,
+            subtotalElem,
+            totalElem,
+            goToPaymentElem,
+        );
+    }
 }
 
 const drawCart = () => {
     preOrder = new Order(0, new User(), 45);
-    const cartItemsWrapper = document.getElementById("cart-Items");
+    const cartItemsWrapper = document.getElementById('cart-Items');
     cartItemsWrapper.innerHTML = '';
     for (const product of preOrder.getProducts()) {
         cartItemsWrapper.append( generateCartItemElement(product) );
@@ -175,24 +188,16 @@ const drawCart = () => {
  const createItemsElements = (products) => {
     const productElements = [];
     for (const product of products) {
-        const prodElem = document.createElement('div');
-        prodElem.classList.add(
-            'menu__box__category__plates__item', 
-            'col-sm-12',
-            'col-md-6',
-            'col-lg-4'
-        );
+        const prodElem = createElementWithClass('div', '', 'menu__box__category__plates__item col-sm-12 col-md-6 col-lg-4');
         prodElem.innerHTML = `
-            <img class="menu__box__category__plates__item__img" src="../${product.image}" alt="${product.name}">
-            <h3 class="menu__box__category__plates__item__title">${product.name}</h3>
-            <p class="menu__box__category__plates__item__description">${product.description}</p>
-            <p class="menu__box__category__plates__item__price">$${product.price}</p>`;
+            <img class='menu__box__category__plates__item__img' src='../${product.image}' alt='${product.name}'>
+            <h3 class='menu__box__category__plates__item__title'>${product.name}</h3>
+            <p class='menu__box__category__plates__item__description'>${product.description}</p>
+            <p class='menu__box__category__plates__item__price'>$${product.price}</p>`;
 
-        const addToCartButton = document.createElement('button');
-        addToCartButton.classList.add('add-item', 'menu__box__category__plates__item__button');
+        const addToCartButton = createElementWithClass('button', 'Agregar al carro', 'add-item menu__box__category__plates__item__button');
         addToCartButton.setAttribute('data-id', product.id);
         addToCartButton.setAttribute('show-message', 'true');
-        addToCartButton.append('Agregar al carro');
         addToCartButton.addEventListener('click', addToCartEventHandler);
 
         prodElem.append(addToCartButton);
@@ -203,22 +208,20 @@ const drawCart = () => {
 
 // ====== FUNCTION TO DRAW PRODUCTS MENU ======
 const drawMenu = (productsByCategory = []) => {
-    const menuBox = document.getElementById("menu");
+    const menuBox = document.getElementById('menu');
     menuBox.innerHTML = '';
     let categorySection = null;
     for (category of productsByCategory) {
         categorySection = createCategorySectionElem();
 
-        const categoryTitle = document.createElement('div');
-        categoryTitle.classList.add('row', 'mb-3');
+        const categoryTitle = createElementWithClass('div', '', 'row mb-3');
         categoryTitle.innerHTML =  `
-            <div class="menu__box__category__title col-sm-12">
+            <div class='menu__box__category__title col-sm-12'>
                 <h2>${category.name}</h2>
             </div>`;
         categorySection.append(categoryTitle);
 
-        const listElements = document.createElement('div');
-        listElements.classList.add('row', 'justify-content-center');
+        const listElements = createElementWithClass('div', '', 'row justify-content-center');
         const products = createItemsElements(category.products);
         products.forEach(elem => listElements.append(elem));
         categorySection.append(listElements);
@@ -229,10 +232,9 @@ const drawMenu = (productsByCategory = []) => {
     if(!categorySection) {
         categorySection = createCategorySectionElem();
 
-        const emptyMenu = document.createElement('div');
-        emptyMenu.classList.add('row', 'mb-3');
+        const emptyMenu = createElementWithClass('div', '', 'row mb-3');
         emptyMenu.innerHTML =  `
-            <div class="menu__box__category__title col-sm-12">
+            <div class='menu__box__category__title col-sm-12'>
                 <h2>La carta está vacía</h2>
             </div>`;
         categorySection.append(emptyMenu);
@@ -241,9 +243,7 @@ const drawMenu = (productsByCategory = []) => {
 }
 
 const createCategorySectionElem = () => {
-    const categorySection = document.createElement('section');
-    categorySection.classList.add('menu__box__category', 'menu__box__category--background-lavander', 'menu__box__category--red-border', 'container');
-    return categorySection;
+    return createElementWithClass('section', '', 'menu__box__category menu__box__category--background-lavander menu__box__category--red-border container');
 }
 
 const urlContains = (page) => {
@@ -267,15 +267,14 @@ const filter = async () => {
 
 const addOptionsAndEventListenerToFilter = async () => {
     const filterSelectElem = document.getElementById('food_filter_type');
-    const selectOption = document.createElement("option");
-    selectOption.value = "0";
-    selectOption.innerHTML = "Todos";
+    
+    const selectOption = createElementWithClass('option', 'Todos');
+    selectOption.value = '0';
     filterSelectElem.append(selectOption);
     const categories = await Category.getAll();
     for (const category of categories ) {
-        const option = document.createElement("option");
+        const option = createElementWithClass('option', category.name);
         option.value = category.id;
-        option.innerHTML = category.name;
         filterSelectElem.append(option);
     }
     filterSelectElem.addEventListener('change', filter);
@@ -289,7 +288,7 @@ const searchProducts = async () => {
     if(searchInputElem.value.length >= 3) {
         const products = await Product.searchByNameAndDescription(searchInputElem.value);
         const searchResult = [{
-            name: "Búsqueda",
+            name: 'Búsqueda',
             products: products,
         }]
         drawMenu(searchResult);
@@ -308,7 +307,7 @@ const addEventListenerToSearch = () => {
 
 // this is the code executed when the page loads
 const load = async () => {
-    prefixUrl = urlContains('pages') ? "../" : "";
+    prefixUrl = urlContains('pages') ? '../' : '';
     drawCart();
     if(urlContains('online-order.html')) {
         drawMenu(await Category.getProductsCategories());
@@ -318,5 +317,5 @@ const load = async () => {
 }
 
 // this will wait until page loads
-document.addEventListener("DOMContentLoaded", load);
+document.addEventListener('DOMContentLoaded', load);
 
