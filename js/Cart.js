@@ -28,6 +28,7 @@ class Cart {
             this.quantities[product.id] = qty;
         }
         LocalStorage.setUserCart(this);
+        return this.formatProduct(product);        
     }
 
     substractProduct = (product, qty = 1) => {
@@ -42,27 +43,29 @@ class Cart {
             this.quantities[product.id] = qty;
         }
         LocalStorage.setUserCart(this);
+        return this.formatProduct(product);
     }
 
     deleteProduct = (productId) => {
         const result = this.products.findIndex( currProduct => currProduct.id === productId );
         if(result != -1) {
             const  [ deletedProduct ]  = this.products.splice(result, 1);
-            delete this.quantities.productId;
+            delete this.quantities[productId];
             LocalStorage.setUserCart(this);
-            return deletedProduct;
+            return this.formatProduct(deletedProduct);
         }
-        
         return false;
     }
 
-    getProducts = () => this.products.map( product => {
+    formatProduct = (product) => {
         return {
             id: product.id,
             name: product.name,
             price: product.price,
-            qty: this.quantities[product.id],
-            total: this.quantities[product.id] * product.price,
+            qty: this.quantities[product.id] || 0,
+            total: this.quantities[product.id] * product.price || 0,
         }
-    });
+    }
+
+    getProducts = () => this.products.map( product => this.formatProduct(product));
 }

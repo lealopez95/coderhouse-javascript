@@ -2,6 +2,21 @@
 let prefixUrl = '';
 
 // ====== CART FUNCTIONS ======
+const addCartItem = (product) => {
+    const productElem = document.getElementById(`quantity_${product.id}`);
+    if(!productElem) {
+        const listElement = generateCartItemElement(product);
+        const cartItemsWrapper = document.getElementById("cart-Items");
+        if(cartItemsWrapper.innerHTML === `No hay productos en su carrito`) {
+            cartItemsWrapper.innerHTML = '';
+        }
+        cartItemsWrapper.append(listElement);
+    } else {
+        productElem.value = productElem.value ? parseInt(productElem.value) + 1 : 1;
+    }
+    drawCartResume();
+}
+
 const addToCartEventHandler = async ({ srcElement }) => {
     const productsInStock = await Product.getProductsInStock();
     const productId = parseInt(srcElement.getAttribute("data-id"));
@@ -10,16 +25,31 @@ const addToCartEventHandler = async ({ srcElement }) => {
     const product = productsInStock.find(product => product.id === productId);
     const user = new User();
     const userCart = user.getCart();
-    userCart.addProduct(product);
+    const prodAdded = userCart.addProduct(product);
     if (shouldShowMessage) {
         swal({
-           text: `Añadiste ${product.name} a tu carrito.`,
+           text: `Añadiste ${prodAdded.name} a tu carrito.`,
             icon: "success",
             button: "Ok",
         });
     }
-    drawCart();
-    addEventsForCart();
+    addCartItem(prodAdded);
+}
+
+const removeCartItem = (product) =>  {
+    console.log(product)
+    if(product.qty > 0) {
+        const productElemQty = document.getElementById(`quantity_${product.id}`);
+        productElemQty.value = parseInt(productElemQty.value) - 1;
+    } else{
+        const productElem = document.getElementById(`cartItem_${product.id}`);
+        productElem.remove();
+        const cartItemsWrapper = document.getElementById("cart-Items");
+        if(cartItemsWrapper.innerHTML === '') {
+            cartItemsWrapper.innerHTML = 'No hay productos en su carrito';
+        }
+    }
+    drawCartResume();
 }
 
 const substractFromCartEventHandler = async ({ srcElement }) => {
@@ -28,9 +58,8 @@ const substractFromCartEventHandler = async ({ srcElement }) => {
     const product = productsInStock.find(product => product.id === productId);
     const user = new User();
     const userCart = user.getCart();
-    userCart.substractProduct(product);
-    drawCart();
-    addEventsForCart();
+    const removedProduct = userCart.substractProduct(product);
+    removeCartItem(removedProduct);
 }
 
 const deleteFromCartEventHandler = ({ srcElement }) => {
@@ -45,33 +74,66 @@ const deleteFromCartEventHandler = ({ srcElement }) => {
             button: "Ok",
         });
     }
-    drawCart();
-    addEventsForCart();    
-}
-
-const addEventByClass = (className, eventHandler) => {
-    const productBoxes = document.getElementsByClassName(className);
-    for (productBox of productBoxes) {
-        productBox.addEventListener("click", eventHandler);
-    }
+    removeCartItem(productDeleted);
 }
 
 const generateCartItemElement = (product) => {
-    return `
-    <li class="header__basket__section__list__item" >
-        <p class="header__basket__section__list__item__text">${product.name}</p>
-        <button class="header__basket__section__list__item__button header__basket__section__list__item__button--small substract-item" data-id="${product.id}">-</button>
-        <input class="header__basket__section__list__item__qty" type="number" min="0" name="quantity" id="quantity_${product.id}" value="${product.qty}">
-        <button class="header__basket__section__list__item__button header__basket__section__list__item__button--small add-item" data-id="${product.id}">+</button>
-        <p class="header__basket__section__list__item__price" id="price_${product.id}">$${product.price}</p>
-        <button id="trash_${product.id}" href="#" class="delete-item header__basket__section__list__item__trash" data-id="${product.id}">
-            <img class="header__basket__section__list__item__icon" src="${prefixUrl}media/images/icons/trash_icon.svg" alt="tacho de basura">
-        </button>
-    </li>
-    `;
+    const listItem = document.createElement('li');
+    listItem.classList.add('header__basket__section__list__item');
+    listItem.setAttribute('id', `cartItem_${product.id}`);
+
+    const nameElem = document.createElement('p');
+    nameElem.classList.add('header__basket__section__list__item__text');
+    nameElem.append(product.name);    
+    
+    const minusButton = document.createElement('button');
+    minusButton.classList.add('header__basket__section__list__item__button', 'header__basket__section__list__item__button--small', 'substract-item');
+    minusButton.append('-');
+    minusButton.setAttribute('data-id', product.id);
+    minusButton.addEventListener('click', substractFromCartEventHandler);
+
+
+    const qtyInput = document.createElement('input');
+    qtyInput.classList.add('header__basket__section__list__item__qty');
+    qtyInput.type = "number";
+    qtyInput.min = "0";
+    qtyInput.name = "quantity";
+    qtyInput.id = `quantity_${product.id}`;
+    qtyInput.value = product.qty;
+
+    const plusButton = document.createElement('button');
+    plusButton.classList.add('header__basket__section__list__item__button', 'header__basket__section__list__item__button--small', 'add-item');
+    plusButton.append('+');
+    plusButton.setAttribute('data-id', product.id);
+    plusButton.addEventListener('click', addToCartEventHandler);
+
+    const priceElem = document.createElement('p');
+    priceElem.classList.add('header__basket__section__list__item__price');
+    priceElem.id = `price_${product.id}`;
+    priceElem.append(`$${product.price}`); 
+
+    const deleteButton = document.createElement('button');
+    deleteButton.classList.add('delete-item', 'header__basket__section__list__item__trash');
+    deleteButton.setAttribute('data-id', product.id);
+    deleteButton.innerHTML = `<img class="header__basket__section__list__item__icon" src="${prefixUrl}media/images/icons/trash_icon.svg" alt="tacho de basura">`;
+    deleteButton.addEventListener('click', deleteFromCartEventHandler);
+
+    listItem.append(
+        nameElem,
+        minusButton,
+        qtyInput,
+        plusButton,
+        priceElem,
+        deleteButton
+    );
+
+    return listItem;
 }
 
-const drawCartResume = (order) => {
+const drawCartResume = (order = null) => {
+    if(!order) {
+        order = new Order(0, new User(), 45)
+    }
     const cartResumeWrapper = document.getElementById("order-Items");
     const innerHTML = ( order.products?.length > 0 && `
     <li class="header__basket__section__list__item">
@@ -94,24 +156,19 @@ const drawCartResume = (order) => {
 
 }
 
-const drawCart = (preOrder = null) => {
-    if (!preOrder) {
-        preOrder = new Order(0, new User(), 45);
-    }
+const drawCart = () => {
+    preOrder = new Order(0, new User(), 45);
     const cartItemsWrapper = document.getElementById("cart-Items");
-    let innerHTML = "";
+    cartItemsWrapper.innerHTML = '';
     for (const product of preOrder.getProducts()) {
-        innerHTML += generateCartItemElement(product);
+        cartItemsWrapper.append( generateCartItemElement(product) );
     }
-    cartItemsWrapper.innerHTML = innerHTML || `No hay productos en su carrito`;
+    if (cartItemsWrapper.innerHTML === '') {
+        cartItemsWrapper.innerHTML = `No hay productos en su carrito`;
+    }
     drawCartResume(preOrder);
 }
 
-const addEventsForCart = () => {
-    addEventByClass("add-item", addToCartEventHandler);
-    addEventByClass("substract-item", substractFromCartEventHandler);
-    addEventByClass("delete-item", deleteFromCartEventHandler);
-}
  // ====== CART FUNCTIONS END ======
  
  // ====== FUNCTION TO DRAW PRODUCT BOXES ======
@@ -129,8 +186,16 @@ const addEventsForCart = () => {
             <img class="menu__box__category__plates__item__img" src="../${product.image}" alt="${product.name}">
             <h3 class="menu__box__category__plates__item__title">${product.name}</h3>
             <p class="menu__box__category__plates__item__description">${product.description}</p>
-            <p class="menu__box__category__plates__item__price">$${product.price}</p>
-            <button class="add-item menu__box__category__plates__item__button" data-id="${product.id}" show-message="true">Agregar al carro</button>`
+            <p class="menu__box__category__plates__item__price">$${product.price}</p>`;
+
+        const addToCartButton = document.createElement('button');
+        addToCartButton.classList.add('add-item', 'menu__box__category__plates__item__button');
+        addToCartButton.setAttribute('data-id', product.id);
+        addToCartButton.setAttribute('show-message', 'true');
+        addToCartButton.append('Agregar al carro');
+        addToCartButton.addEventListener('click', addToCartEventHandler);
+
+        prodElem.append(addToCartButton);
         productElements.push(prodElem);
     }
     return productElements;
@@ -198,7 +263,6 @@ const filter = async () => {
     } else {
         drawMenu(productsByCategory);
     }
-    addEventsForCart();
 }
 
 const addOptionsAndEventListenerToFilter = async () => {
@@ -229,7 +293,6 @@ const searchProducts = async () => {
             products: products,
         }]
         drawMenu(searchResult);
-        addEventsForCart();
     }
     if(searchInputElem.value.length == 0) {
         filter();
@@ -252,7 +315,6 @@ const load = async () => {
         await addOptionsAndEventListenerToFilter();
         addEventListenerToSearch();
     }
-    addEventsForCart();
 }
 
 // this will wait until page loads
